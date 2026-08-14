@@ -1,6 +1,7 @@
 import { ExternalLink } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { KaneoBranding } from "./kaneo-branding";
+import { Logo } from "@/components/common/logo";
+import { ProductAttribution } from "./product-attribution";
 
 export function ErrorView() {
   const { t } = useTranslation();
@@ -8,6 +9,7 @@ export function ErrorView() {
     <div className="min-h-screen bg-background flex flex-col w-full">
       <div className="flex-1 flex items-center justify-center">
         <div className="text-center space-y-6">
+          <Logo className="flex justify-center" />
           <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-destructive/12">
             <ExternalLink className="h-10 w-10 text-destructive-foreground" />
           </div>
@@ -19,7 +21,7 @@ export function ErrorView() {
               {t("publicProject:error.description")}
             </p>
           </div>
-          <KaneoBranding />
+          <ProductAttribution />
         </div>
       </div>
     </div>
