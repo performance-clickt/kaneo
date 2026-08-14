@@ -15,23 +15,23 @@ export type NotificationEmailProps = {
 
 const messages = {
   en: {
-    preview: "You have a new Kaneo notification",
+    preview: "You have a new Clickt HiveMind notification",
     subtitle: "A notification matched your delivery preferences.",
-    footer: "Kaneo notification",
-    actionLabel: "Open in Kaneo",
+    footer: "Clickt HiveMind notification",
+    actionLabel: "Open in Clickt HiveMind",
   },
   de: {
-    preview: "Du hast eine neue Kaneo-Benachrichtigung",
+    preview: "Du hast eine neue Clickt HiveMind-Benachrichtigung",
     subtitle:
       "Eine Benachrichtigung entspricht deinen Zustellungs-Einstellungen.",
-    footer: "Kaneo-Benachrichtigung",
-    actionLabel: "In Kaneo oeffnen",
+    footer: "Clickt HiveMind-Benachrichtigung",
+    actionLabel: "In Clickt HiveMind oeffnen",
   },
   vi: {
-    preview: "Bạn có thông báo mới từ Kaneo",
+    preview: "Bạn có thông báo mới từ Clickt HiveMind",
     subtitle: "Một thông báo khớp với tùy chọn nhận thông báo của bạn.",
-    footer: "Thông báo Kaneo",
-    actionLabel: "Mở trong Kaneo",
+    footer: "Thông báo Clickt HiveMind",
+    actionLabel: "Mở trong Clickt HiveMind",
   },
 } as const;
 
@@ -63,7 +63,7 @@ const NotificationEmail = ({
 NotificationEmail.PreviewProps = {
   title: "Task assigned to you",
   message: "You were assigned to Design account notifications.",
-  actionUrl: "https://kaneo.app",
+  actionUrl: "https://hivemind.example.com",
 } as NotificationEmailProps;
 
 export default NotificationEmail;

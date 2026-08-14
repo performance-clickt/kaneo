@@ -61,6 +61,8 @@ describe("getInvitationEmailSubject", () => {
       workspaceName,
     );
 
-    expect(subject).toBe("Alice invited you to join Producto on Kaneo");
+    expect(subject).toBe(
+      "Alice invited you to join Producto on Clickt HiveMind",
+    );
   });
 });

@@ -1,5 +1,6 @@
 import { AlertTriangle, ExternalLink, RefreshCw } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { UPSTREAM_DEPLOYMENT_GUIDE_URL } from "@/constants/urls";
 import {
   getCorsTroubleshootingSteps,
   getNetworkTroubleshootingSteps,
@@ -90,7 +91,9 @@ export function ErrorDisplay({
 
             {parsedError.type === "cors" && (
               <Button
-                onClick={() => window.open("https://kaneo.app/docs", "_blank")}
+                onClick={() =>
+                  window.open(UPSTREAM_DEPLOYMENT_GUIDE_URL, "_blank")
+                }
                 variant="outline"
                 size="icon"
                 className="w-full"

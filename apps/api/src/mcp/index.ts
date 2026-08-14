@@ -108,7 +108,7 @@ mcp.get(
     description: "Start an explicit MCP OAuth consent request",
     security: [],
     responses: {
-      302: { description: "Redirect to the Kaneo consent page" },
+      302: { description: "Redirect to the Clickt HiveMind consent page" },
       400: {
         description: "Invalid authorization request",
         content: {

@@ -409,17 +409,17 @@ export function createApp() {
     documentation: {
       openapi: "3.0.3",
       info: {
-        title: "Kaneo API",
+        title: "Clickt HiveMind API",
         version: "1.0.0",
         description:
-          "Kaneo Project Management API - Manage projects, tasks, labels, and more",
+          "Clickt HiveMind project management API - Manage projects, tasks, labels, and more",
       },
       servers: [
         {
           url: normalizeApiServerUrl(
             process.env.KANEO_API_URL || "https://cloud.kaneo.app",
           ),
-          description: "Kaneo API Server",
+          description: "Clickt HiveMind API server",
         },
       ],
       components: {
