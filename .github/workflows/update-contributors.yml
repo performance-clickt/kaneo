@@ -12,6 +12,7 @@ on:
 
 jobs:
   update-contributors:
+    if: ${{ github.repository == 'usekaneo/kaneo' }}
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -62,4 +63,4 @@ jobs:
         if: ${{ steps.commit.outputs.pushed == 'true' }}
         env:
           GH_TOKEN: ${{ github.token }}
-        run: gh workflow run deploy-site.yml --repo "${GITHUB_REPOSITORY}" --ref main 
+        run: gh workflow run deploy-site.yml --repo "${GITHUB_REPOSITORY}" --ref main

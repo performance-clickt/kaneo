@@ -19,6 +19,7 @@ env:
 
 jobs:
   build-and-push-image:
+    if: ${{ github.repository == 'usekaneo/kaneo' }}
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
@@ -74,7 +75,7 @@ jobs:
 
   trigger-helm-publish:
     needs: build-and-push-image
-    if: inputs.version != '' && github.ref == 'refs/heads/main'
+    if: github.repository == 'usekaneo/kaneo' && inputs.version != '' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
     permissions:
       actions: write

@@ -78,7 +78,7 @@ jobs:
         run: helm template kaneo "$CHART_PATH" ${{ matrix.args }}
 
   publish:
-    if: github.event_name != 'pull_request'
+    if: github.repository == 'usekaneo/kaneo' && github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
     needs: validate
     permissions:
