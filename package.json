@@ -14,6 +14,7 @@
     "test": "turbo test",
     "test:integration": "turbo test:integration",
     "typecheck": "turbo typecheck",
+    "verify:reskin": "node --test tests/branding/clickt-reskin.test.mjs && node scripts/check-clickt-branding.mjs",
     "prepare": "husky"
   },
   "devDependencies": {
