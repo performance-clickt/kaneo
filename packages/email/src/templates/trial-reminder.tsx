@@ -49,8 +49,7 @@ const TrialReminderEmail = ({
         </Text>
         <Section style={styles.divider} />
         <Text style={styles.footer}>
-          You are receiving this because you own this workspace on Clickt
-          HiveMind Cloud.
+          You are receiving this because you own this workspace on Kaneo Cloud.
         </Text>
       </Section>
     </EmailShell>

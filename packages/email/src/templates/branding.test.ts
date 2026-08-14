@@ -50,8 +50,8 @@ describe("Clickt HiveMind email branding", () => {
     },
   );
 
-  it("uses the Clickt HiveMind name in invitation and trial emails", async () => {
-    const templates = [
+  it("uses the Clickt HiveMind name in invitation emails", async () => {
+    const html = await render(
       createElement(WorkspaceInvitationEmail, {
         workspaceName: "Acme",
         inviterName: "Alex",
@@ -60,18 +60,24 @@ describe("Clickt HiveMind email branding", () => {
         to: "invitee@example.com",
         copy: enUS.invitations.email,
       }),
+    );
+
+    expect(html).toContain("Clickt HiveMind");
+    expect(html).not.toMatch(legacyProductName);
+  });
+
+  it("distinguishes self-hosted Clickt HiveMind from Kaneo Cloud", async () => {
+    const html = await render(
       createElement(TrialReminderEmail, {
         workspaceName: "Acme",
         daysLeft: 3,
         billingUrl: "https://hivemind.example.com/billing",
       }),
-    ];
+    );
 
-    for (const template of templates) {
-      const html = await render(template);
-      expect(html).toContain("Clickt HiveMind");
-      expect(html).not.toMatch(legacyProductName);
-    }
+    expect(html).toContain("Clickt HiveMind");
+    expect(html).toContain("Kaneo Cloud");
+    expect(html.replaceAll("Kaneo Cloud", "")).not.toMatch(legacyProductName);
   });
 
   it("allows legacy text in en-US only inside compatibility identifiers", () => {
