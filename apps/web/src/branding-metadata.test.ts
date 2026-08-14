@@ -27,16 +27,16 @@ describe("Clickt HiveMind web metadata", () => {
   it("uses relative root URLs as the intentional deployment-neutral boundary", () => {
     expect(indexHtml).toContain("<title>Clickt HiveMind</title>");
     expect(indexHtml).toContain(
-      '<link rel="canonical" href="/" data-origin-path="/">',
+      '<link rel="canonical" href="/" data-origin-path="/" vite-ignore>',
     );
     expect(indexHtml).toContain(
-      '<meta property="og:url" content="/" data-origin-path="/">',
+      '<meta property="og:url" content="/" data-origin-path="/" vite-ignore>',
     );
     expect(indexHtml).toContain(
-      '<meta name="twitter:url" content="/" data-origin-path="/">',
+      '<meta name="twitter:url" content="/" data-origin-path="/" vite-ignore>',
     );
     expect(indexHtml).toContain(
-      'content="/web-app-manifest-512x512.png" data-origin-path="/web-app-manifest-512x512.png"',
+      'content="/web-app-manifest-512x512.png" data-origin-path="/web-app-manifest-512x512.png" vite-ignore',
     );
     expect(indexHtml).toContain(
       '<script type="module" src="/src/runtime-branding-metadata.ts"></script>',
