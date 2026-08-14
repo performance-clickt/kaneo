@@ -6,6 +6,7 @@ on:
     types: [opened]
 jobs:
   run:
+    if: ${{ github.repository == 'usekaneo/kaneo' }}
     runs-on: ubuntu-24.04
     permissions:
       issues: write

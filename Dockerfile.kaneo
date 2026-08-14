@@ -83,6 +83,21 @@ RUN pnpm run build
 
 FROM node:20.20.2-alpine AS runtime
 
+ARG OCI_SOURCE="https://github.com/performance-clickt/kaneo"
+ARG OCI_REVISION="unknown"
+ARG OCI_VERSION="v2.18.0-clickt.4a5f68c4543d"
+ARG KANEO_UPSTREAM_VERSION="2.18.0"
+ARG CLICKT_RESKIN_REVISION="4a5f68c4543dd58dc32bddb03259e4a7263239de"
+
+LABEL org.opencontainers.image.title="Clickt HiveMind" \
+  org.opencontainers.image.description="Clickt's self-hosted project management workspace" \
+  org.opencontainers.image.source="$OCI_SOURCE" \
+  org.opencontainers.image.revision="$OCI_REVISION" \
+  org.opencontainers.image.version="$OCI_VERSION" \
+  org.opencontainers.image.licenses="MIT" \
+  io.clickt.kaneo.upstream-version="$KANEO_UPSTREAM_VERSION" \
+  io.clickt.kaneo.reskin-revision="$CLICKT_RESKIN_REVISION"
+
 RUN apk add --no-cache nginx=~1.28.3 && \
   addgroup -g 1001 appuser && \
   adduser -u 1001 -G appuser -D appuser && \

@@ -1,0 +1,166 @@
+name: Publish Clickt bundled image
+
+on:
+  workflow_dispatch:
+
+concurrency:
+  group: clickt-image-${{ github.sha }}
+  cancel-in-progress: false
+
+env:
+  IMAGE: ghcr.io/performance-clickt/kaneo
+  UPSTREAM_VERSION: "2.18.0"
+  RESKIN_REVISION: 4a5f68c4543dd58dc32bddb03259e4a7263239de
+
+jobs:
+  publish:
+    if: ${{ github.repository == 'performance-clickt/kaneo' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout reviewed source
+        uses: actions/checkout@v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Derive immutable image version
+        id: version
+        env:
+          SOURCE_REVISION: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          package_version="$(jq -r '.version' package.json)"
+          test "$package_version" = "$UPSTREAM_VERSION"
+          test "$(git rev-parse HEAD)" = "$SOURCE_REVISION"
+          git merge-base --is-ancestor "$RESKIN_REVISION" "$SOURCE_REVISION"
+
+          short_reskin="${RESKIN_REVISION:0:12}"
+          short_source="${SOURCE_REVISION:0:12}"
+          image_version="v${UPSTREAM_VERSION}-clickt.${short_reskin}.${short_source}"
+          image_ref="${IMAGE}:${image_version}"
+
+          echo "image_version=$image_version" >> "$GITHUB_OUTPUT"
+          echo "image_ref=$image_ref" >> "$GITHUB_OUTPUT"
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v4
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Refuse to overwrite an existing immutable tag
+        env:
+          IMAGE_REF: ${{ steps.version.outputs.image_ref }}
+        run: |
+          set -euo pipefail
+          if docker buildx imagetools inspect "$IMAGE_REF" >/dev/null 2>&1; then
+            echo "::error::Immutable image tag already exists: $IMAGE_REF"
+            exit 1
+          fi
+
+      - name: Build amd64 smoke image
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./Dockerfile.kaneo
+          platforms: linux/amd64
+          load: true
+          push: false
+          tags: clickt-hivemind-smoke:${{ github.sha }}
+          build-args: |
+            OCI_SOURCE=https://github.com/${{ github.repository }}
+            OCI_REVISION=${{ github.sha }}
+            OCI_VERSION=${{ steps.version.outputs.image_version }}
+            KANEO_UPSTREAM_VERSION=${{ env.UPSTREAM_VERSION }}
+            CLICKT_RESKIN_REVISION=${{ env.RESKIN_REVISION }}
+          cache-from: type=gha
+
+      - name: Smoke test clean bundled container
+        env:
+          SMOKE_IMAGE: clickt-hivemind-smoke:${{ github.sha }}
+          IMAGE_VERSION: ${{ steps.version.outputs.image_version }}
+        run: |
+          scripts/smoke-clickt-image.sh \
+            "$SMOKE_IMAGE" \
+            "https://github.com/$GITHUB_REPOSITORY" \
+            "$GITHUB_SHA" \
+            "$IMAGE_VERSION" \
+            "$UPSTREAM_VERSION" \
+            "$RESKIN_REVISION" \
+            amd64
+
+      - name: Build and publish multi-architecture image
+        id: publish
+        uses: docker/build-push-action@v7
+        with:
+          context: .
+          file: ./Dockerfile.kaneo
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.version.outputs.image_ref }}
+          labels: |
+            org.opencontainers.image.title=Clickt HiveMind
+            org.opencontainers.image.description=Clickt's self-hosted project management workspace
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.revision=${{ github.sha }}
+            org.opencontainers.image.version=${{ steps.version.outputs.image_version }}
+            org.opencontainers.image.licenses=MIT
+            io.clickt.kaneo.upstream-version=${{ env.UPSTREAM_VERSION }}
+            io.clickt.kaneo.reskin-revision=${{ env.RESKIN_REVISION }}
+          build-args: |
+            OCI_SOURCE=https://github.com/${{ github.repository }}
+            OCI_REVISION=${{ github.sha }}
+            OCI_VERSION=${{ steps.version.outputs.image_version }}
+            KANEO_UPSTREAM_VERSION=${{ env.UPSTREAM_VERSION }}
+            CLICKT_RESKIN_REVISION=${{ env.RESKIN_REVISION }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          provenance: mode=max
+          sbom: true
+
+      - name: Record digest metadata
+        env:
+          DIGEST: ${{ steps.publish.outputs.digest }}
+          IMAGE_REF: ${{ steps.version.outputs.image_ref }}
+          IMAGE_VERSION: ${{ steps.version.outputs.image_version }}
+          SOURCE_REVISION: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          jq -n \
+            --arg image "$IMAGE" \
+            --arg tag "$IMAGE_REF" \
+            --arg digest "$DIGEST" \
+            --arg version "$IMAGE_VERSION" \
+            --arg upstreamVersion "$UPSTREAM_VERSION" \
+            --arg reskinRevision "$RESKIN_REVISION" \
+            --arg sourceRevision "$SOURCE_REVISION" \
+            '{image: $image, tag: $tag, digest: $digest, immutableRef: ($image + "@" + $digest), version: $version, upstreamVersion: $upstreamVersion, reskinRevision: $reskinRevision, sourceRevision: $sourceRevision, platforms: ["linux/amd64", "linux/arm64"]}' \
+            > clickt-image-metadata.json
+
+          {
+            echo "### Clickt image published"
+            echo
+            echo "- Tag: \`$IMAGE_REF\`"
+            echo "- Immutable reference: \`$IMAGE@$DIGEST\`"
+            echo "- Source revision: \`$SOURCE_REVISION\`"
+            echo "- Reskin revision: \`$RESKIN_REVISION\`"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload digest metadata
+        uses: actions/upload-artifact@v6
+        with:
+          name: clickt-image-${{ steps.version.outputs.image_version }}
+          path: clickt-image-metadata.json
+          if-no-files-found: error
+          retention-days: 90

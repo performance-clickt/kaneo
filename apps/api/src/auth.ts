@@ -141,21 +141,21 @@ function getAuthEmailCopy(locale?: string | null) {
 
   if (localeKey === "de") {
     return {
-      magicLinkSubject: "Anmeldelink fuer Kaneo",
-      otpSubject: "Bestaetigungscode fuer Kaneo",
+      magicLinkSubject: "Anmeldelink fuer Clickt HiveMind",
+      otpSubject: "Bestaetigungscode fuer Clickt HiveMind",
     };
   }
 
   if (localeKey === "vi") {
     return {
-      magicLinkSubject: "Liên kết đăng nhập Kaneo",
-      otpSubject: "Mã xác minh Kaneo",
+      magicLinkSubject: "Liên kết đăng nhập Clickt HiveMind",
+      otpSubject: "Mã xác minh Clickt HiveMind",
     };
   }
 
   return {
-    magicLinkSubject: "Login for Kaneo",
-    otpSubject: "Authentication code for Kaneo",
+    magicLinkSubject: "Login for Clickt HiveMind",
+    otpSubject: "Authentication code for Clickt HiveMind",
   };
 }
 

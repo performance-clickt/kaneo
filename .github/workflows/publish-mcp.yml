@@ -20,7 +20,7 @@ concurrency:
 jobs:
   publish:
     runs-on: ubuntu-24.04
-    if: ${{ github.event_name == 'push' || startsWith(github.event.release.tag_name, 'mcp-v') }}
+    if: ${{ github.repository == 'usekaneo/kaneo' && (github.event_name == 'push' || startsWith(github.event.release.tag_name, 'mcp-v')) }}
 
     steps:
       - name: Checkout repository

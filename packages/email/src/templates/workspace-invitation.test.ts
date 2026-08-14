@@ -11,7 +11,7 @@ describe("WorkspaceInvitationEmail", () => {
         workspaceName: "Équipe Produit",
         inviterName: "Camille",
         inviterEmail: "camille@example.com",
-        invitationLink: "https://kaneo.example/invite/abc",
+        invitationLink: "https://hivemind.example/invite/abc",
         to: "invite@example.com",
         copy: frFR.invitations.email,
       }),
@@ -20,5 +20,6 @@ describe("WorkspaceInvitationEmail", () => {
     expect(html).toContain("Rejoindre Équipe Produit");
     expect(html).toContain("Accepter l’invitation");
     expect(html).toContain("Camille (camille@example.com)");
+    expect(html).toContain("Clickt HiveMind");
   });
 });

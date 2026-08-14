@@ -75,6 +75,9 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Verify Clickt reskin
+        run: pnpm verify:reskin
+
       - name: Run unit tests
         run: pnpm test
 
@@ -147,6 +150,11 @@ jobs:
 
   docker-build:
     runs-on: ubuntu-24.04
+    env:
+      SMOKE_IMAGE: clickt-hivemind-ci:${{ github.sha }}
+      IMAGE_VERSION: ci-${{ github.sha }}
+      UPSTREAM_VERSION: "2.18.0"
+      RESKIN_REVISION: 4a5f68c4543dd58dc32bddb03259e4a7263239de
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
@@ -160,6 +168,25 @@ jobs:
           context: .
           file: ./Dockerfile.kaneo
           platforms: linux/amd64
+          load: true
           push: false
+          tags: ${{ env.SMOKE_IMAGE }}
+          build-args: |
+            OCI_SOURCE=https://github.com/${{ github.repository }}
+            OCI_REVISION=${{ github.sha }}
+            OCI_VERSION=${{ env.IMAGE_VERSION }}
+            KANEO_UPSTREAM_VERSION=${{ env.UPSTREAM_VERSION }}
+            CLICKT_RESKIN_REVISION=${{ env.RESKIN_REVISION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
+
+      - name: Smoke test bundled Clickt image
+        run: |
+          scripts/smoke-clickt-image.sh \
+            "$SMOKE_IMAGE" \
+            "https://github.com/$GITHUB_REPOSITORY" \
+            "$GITHUB_SHA" \
+            "$IMAGE_VERSION" \
+            "$UPSTREAM_VERSION" \
+            "$RESKIN_REVISION" \
+            amd64

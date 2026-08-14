@@ -2,13 +2,14 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Layout, List } from "lucide-react";
 import { createElement, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { Logo } from "@/components/common/logo";
 import PageTitle from "@/components/page-title";
 import { CopyUrlButton } from "@/components/public-project/copy-url-button";
 import { ErrorView } from "@/components/public-project/error-view";
 import { PublicKanbanView } from "@/components/public-project/kanban-view";
-import { KaneoBranding } from "@/components/public-project/kaneo-branding";
 import { PublicListView } from "@/components/public-project/list-view";
 import { LoadingSkeleton } from "@/components/public-project/loading-skeleton";
+import { ProductAttribution } from "@/components/public-project/product-attribution";
 import { PublicTaskDetailModal } from "@/components/public-project/task-detail-modal";
 import { ThemeToggle } from "@/components/public-project/theme-toggle";
 import { Button } from "@/components/ui/button";
@@ -70,6 +71,8 @@ function RouteComponent() {
           <div className="px-6 py-2.5">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3 flex-1 min-w-0">
+                <Logo className="shrink-0" imageClassName="h-5" />
+                <div className="h-5 w-px bg-border shrink-0" />
                 <div className="w-9 h-9 rounded-lg bg-muted flex items-center justify-center shrink-0">
                   {createElement(
                     icons[project.icon as keyof typeof icons] || Layout,
@@ -135,7 +138,7 @@ function RouteComponent() {
         <footer className="border-t border-border">
           <div className="px-6 py-3">
             <div className="flex items-center justify-between text-xs text-muted-foreground">
-              <KaneoBranding />
+              <ProductAttribution />
               <span>{t("publicProject:readOnly")}</span>
             </div>
           </div>

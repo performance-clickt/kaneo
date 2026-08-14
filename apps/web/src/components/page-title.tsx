@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { PRODUCT_NAME } from "@/constants/urls";
 
 type PageTitleProps = {
   title: string;
@@ -8,7 +9,7 @@ type PageTitleProps = {
 
 export default function PageTitle({
   title,
-  suffix = "Kaneo",
+  suffix = PRODUCT_NAME,
   hideAppName = false,
 }: PageTitleProps) {
   useEffect(() => {

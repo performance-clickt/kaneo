@@ -138,8 +138,8 @@ function RouteComponent() {
         <div className="mx-auto max-w-4xl space-y-2">
           <h1 className="font-semibold text-2xl">Billing</h1>
           <p className="text-muted-foreground text-sm">
-            Billing isn't enabled on this instance. Self-hosted Kaneo includes
-            every feature, free forever.
+            Billing isn't enabled on this instance. Self-hosted Clickt HiveMind
+            includes every feature, free forever.
           </p>
         </div>
       </>

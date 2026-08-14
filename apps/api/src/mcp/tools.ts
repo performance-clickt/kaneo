@@ -233,7 +233,7 @@ export function registerMcpTools(
   registerTool(
     "whoami",
     {
-      description: "Return the current Kaneo session and user.",
+      description: "Return the current Clickt HiveMind session and user.",
       inputSchema: z.object({}),
     },
     async () =>

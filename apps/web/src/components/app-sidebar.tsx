@@ -1,5 +1,6 @@
 import type * as React from "react";
 
+import { Logo } from "@/components/common/logo";
 import { NavMain } from "@/components/nav-main";
 import { NavProjects } from "@/components/nav-projects";
 import { ThemeToggleDropdown } from "@/components/theme-toggle-dropdown";
@@ -35,7 +36,8 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       className="border-none pt-1.5"
       {...props}
     >
-      <SidebarHeader className="pt-1 pb-1.5">
+      <SidebarHeader className="pt-1 pb-1.5 gap-1">
+        <Logo className="px-2 py-1.5" compactOnCollapsed imageClassName="h-5" />
         <WorkspaceSwitcher />
       </SidebarHeader>
       <SidebarContent className="overflow-hidden gap-1 py-1">
