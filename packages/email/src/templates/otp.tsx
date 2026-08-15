@@ -12,32 +12,32 @@ export type OtpEmailProps = {
 
 const messages = {
   en: {
-    preview: "Your Clickt HiveMind verification code",
+    preview: "Your Pyrito Ops verification code",
     title: "Your verification code",
     subtitle: "Enter this one-time code to finish signing in.",
-    code: "is your Clickt HiveMind verification code.",
+    code: "is your Pyrito Ops verification code.",
     expiry: "This code expires in 15 minutes.",
     ignore: "If you didn't request this, you can ignore this email.",
-    footer: "Clickt HiveMind security email",
+    footer: "Pyrito Ops security email",
   },
   de: {
-    preview: "Dein Clickt HiveMind Bestaetigungscode",
+    preview: "Dein Pyrito Ops Bestaetigungscode",
     title: "Dein Bestaetigungscode",
     subtitle: "Gib diesen Einmalcode ein, um die Anmeldung abzuschliessen.",
-    code: "ist dein Clickt HiveMind Bestaetigungscode.",
+    code: "ist dein Pyrito Ops Bestaetigungscode.",
     expiry: "Dieser Code laeuft in 15 Minuten ab.",
     ignore:
       "Wenn du das nicht angefordert hast, kannst du diese E-Mail ignorieren.",
-    footer: "Clickt HiveMind Sicherheits-E-Mail",
+    footer: "Pyrito Ops Sicherheits-E-Mail",
   },
   vi: {
-    preview: "Mã xác minh Clickt HiveMind của bạn",
+    preview: "Mã xác minh Pyrito Ops của bạn",
     title: "Mã xác minh của bạn",
     subtitle: "Nhập mã dùng một lần này để hoàn tất đăng nhập.",
-    code: "là mã xác minh Clickt HiveMind của bạn.",
+    code: "là mã xác minh Pyrito Ops của bạn.",
     expiry: "Mã này sẽ hết hạn sau 15 phút.",
     ignore: "Nếu bạn không yêu cầu điều này, bạn có thể bỏ qua email này.",
-    footer: "Email bảo mật Clickt HiveMind",
+    footer: "Email bảo mật Pyrito Ops",
   },
 } as const;
 

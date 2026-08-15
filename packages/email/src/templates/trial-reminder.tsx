@@ -43,9 +43,9 @@ const TrialReminderEmail = ({
           Choose a plan
         </Link>
         <Text style={styles.paragraph}>
-          Clickt HiveMind is also free forever if you host it yourself, with
-          every feature included. You can export your data at any time and move
-          it to your own server.
+          Pyrito Ops is also free forever if you host it yourself, with every
+          feature included. You can export your data at any time and move it to
+          your own server.
         </Text>
         <Section style={styles.divider} />
         <Text style={styles.footer}>

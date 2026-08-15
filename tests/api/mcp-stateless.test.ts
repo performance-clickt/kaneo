@@ -52,6 +52,23 @@ type RpcBody = {
   result: {
     tools: unknown[];
     content: Array<{ text: string }>;
+    instructions?: string;
+    serverInfo?: {
+      name: string;
+      title?: string;
+      description?: string;
+      websiteUrl?: string;
+      icons?: Array<{ src: string }>;
+    };
+    _meta?: {
+      "io.modelcontextprotocol/serverInfo"?: {
+        name: string;
+        title?: string;
+        description?: string;
+        websiteUrl?: string;
+        icons?: Array<{ src: string }>;
+      };
+    };
   };
   error?: unknown;
 };
@@ -87,6 +104,15 @@ describe("MCP 2026-07-28 stateless HTTP", () => {
     expect(firstBody.result.tools).toContainEqual(
       expect.objectContaining({ name: "whoami" }),
     );
+    expect(
+      firstBody.result._meta?.["io.modelcontextprotocol/serverInfo"],
+    ).toMatchObject({
+      name: "pyrito-ops-mcp",
+      title: "Pyrito Ops",
+      description: expect.stringContaining("Pyrito Ops"),
+      websiteUrl: "http://api.test",
+      icons: [{ src: "http://api.test/favicon.svg" }],
+    });
   });
 
   it("handles concurrent read-only calls with per-request authentication", async () => {
@@ -265,9 +291,18 @@ describe("MCP 2026-07-28 stateless HTTP", () => {
       }),
     });
     const sessionId = initialize.headers.get("mcp-session-id");
+    const initializeBody = await rpcBody(initialize);
 
     expect(initialize.status).toBe(200);
     expect(sessionId).toBeTruthy();
+    expect(initializeBody.result.serverInfo).toMatchObject({
+      name: "pyrito-ops-mcp",
+      title: "Pyrito Ops",
+      description: expect.stringContaining("Pyrito Ops"),
+      websiteUrl: "http://localhost:1337",
+      icons: [{ src: "http://localhost:1337/favicon.svg" }],
+    });
+    expect(initializeBody.result.instructions).toContain("Pyrito Ops");
 
     const initialized = await mcpRoutes.request("/mcp", {
       method: "POST",

@@ -2,25 +2,26 @@
 set -eu
 
 usage() {
-  echo "usage: $0 IMAGE SOURCE REVISION VERSION UPSTREAM_VERSION RESKIN_REVISION [ARCHITECTURE]" >&2
+  echo "usage: $0 IMAGE SOURCE REVISION VERSION UPSTREAM_VERSION BRAND_VERSION BRAND_REVISION [ARCHITECTURE]" >&2
   exit 64
 }
 
-[ "$#" -ge 6 ] && [ "$#" -le 7 ] || usage
+[ "$#" -ge 7 ] && [ "$#" -le 8 ] || usage
 
 image=$1
 expected_source=$2
 expected_revision=$3
 expected_version=$4
 expected_upstream_version=$5
-expected_reskin_revision=$6
-expected_architecture=${7:-}
+expected_brand_version=$6
+expected_brand_revision=$7
+expected_architecture=${8:-}
 
 suffix="$$"
-network="clickt-image-smoke-network-$suffix"
-postgres_container="clickt-image-smoke-postgres-$suffix"
-app_container="clickt-image-smoke-app-$suffix"
-database_password="clickt-image-smoke-password-$suffix"
+network="pyrito-image-smoke-network-$suffix"
+postgres_container="pyrito-image-smoke-postgres-$suffix"
+app_container="pyrito-image-smoke-app-$suffix"
+database_password="pyrito-image-smoke-password-$suffix"
 
 cleanup() {
   docker rm --force "$app_container" >/dev/null 2>&1 || true
@@ -51,8 +52,11 @@ assert_label org.opencontainers.image.source "$expected_source"
 assert_label org.opencontainers.image.revision "$expected_revision"
 assert_label org.opencontainers.image.version "$expected_version"
 assert_label org.opencontainers.image.licenses MIT
-assert_label io.clickt.kaneo.upstream-version "$expected_upstream_version"
-assert_label io.clickt.kaneo.reskin-revision "$expected_reskin_revision"
+assert_label org.opencontainers.image.title "Pyrito Ops"
+assert_label org.opencontainers.image.description "Pyrito Ops self-hosted project management workspace"
+assert_label io.pyrito.kaneo.upstream-version "$expected_upstream_version"
+assert_label io.pyrito.kaneo.brand-version "$expected_brand_version"
+assert_label io.pyrito.kaneo.brand-revision "$expected_brand_revision"
 
 if [ -n "$expected_architecture" ]; then
   actual_architecture=$(docker image inspect --format '{{ .Architecture }}' "$image")
@@ -107,12 +111,12 @@ attempt=0
 until health=$(curl --fail --silent --show-error "$base_url/api/health" 2>/dev/null); do
   attempt=$((attempt + 1))
   if ! docker inspect --format '{{ .State.Running }}' "$app_container" 2>/dev/null | grep -qx true; then
-    echo "Clickt container exited before becoming healthy" >&2
+    echo "Pyrito Ops container exited before becoming healthy" >&2
     docker logs "$app_container" >&2
     exit 1
   fi
   if [ "$attempt" -ge 120 ]; then
-    echo "Clickt API did not become ready" >&2
+    echo "Pyrito Ops API did not become ready" >&2
     docker logs "$app_container" >&2
     exit 1
   fi
@@ -120,13 +124,33 @@ until health=$(curl --fail --silent --show-error "$base_url/api/health" 2>/dev/n
 done
 
 printf '%s' "$health" | grep -q '"status":"ok"'
-curl --fail --silent --show-error "$base_url/" | grep -q '<title>Clickt HiveMind</title>'
-curl --fail --silent --show-error "$base_url/logo-dark.svg" | grep -q 'Clickt HiveMind'
+home=$(curl --fail --silent --show-error "$base_url/")
+printf '%s' "$home" | grep -q '<title>Pyrito Ops</title>'
+if printf '%s' "$home" | grep -Eqi 'Clickt|HiveMind|<title>Kaneo</title>'; then
+  echo "legacy branding remains in the bundled HTML" >&2
+  exit 1
+fi
+logo=$(curl --fail --silent --show-error "$base_url/logo-dark.svg")
+case "$logo" in
+  *'<title id="title">Pyrito Ops lockup</title>'*) ;;
+  *)
+    echo "Pyrito Ops lockup title is missing" >&2
+    exit 1
+    ;;
+esac
+favicon=$(curl --fail --silent --show-error "$base_url/favicon.svg")
+case "$favicon" in
+  *'<title id="title">Pyrito D20 mark</title>'*) ;;
+  *)
+    echo "Pyrito D20 favicon title is missing" >&2
+    exit 1
+    ;;
+esac
 manifest=$(curl --fail --silent --show-error "$base_url/site.webmanifest")
-printf '%s' "$manifest" | grep -q '"name"[[:space:]]*:[[:space:]]*"Clickt HiveMind"'
+printf '%s' "$manifest" | grep -q '"name"[[:space:]]*:[[:space:]]*"Pyrito Ops"'
 
 logs=$(docker logs "$app_container" 2>&1)
 printf '%s' "$logs" | grep -q 'Database migrated successfully!'
 printf '%s' "$logs" | grep -q 'API is ready'
 
-echo "Clickt image smoke passed: $image ($base_url)"
+echo "Pyrito Ops image smoke passed: $image ($base_url)"

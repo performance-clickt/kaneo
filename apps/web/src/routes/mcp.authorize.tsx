@@ -86,7 +86,7 @@ function McpAuthorizePage() {
   return (
     <AuthLayout
       title="Authorize MCP client"
-      subtitle="Review this request before granting access to your Clickt HiveMind account."
+      subtitle="Review this request before granting access to your Pyrito Ops account."
     >
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">

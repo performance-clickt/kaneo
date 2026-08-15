@@ -75,15 +75,15 @@ input:-webkit-autofill:active {
   --font-sans: var(--font-sans);
   --font-heading: var(--font-heading);
   --font-mono: var(--font-mono);
-  --color-hive-50: #DAE9E6;
-  --color-hive-100: #97C4BD;
-  --color-hive-300: #5BA89A;
-  --color-hive-500: #1F7A82;
-  --color-hive-700: #0F4A52;
-  --color-hive-900: #07262B;
-  --color-ember: #F86B3C;
-  --color-offwhite: #EEF1F3;
-  --color-ink: #0B0F0E;
+  --color-pyrito-teal-50: #DAE9E6;
+  --color-pyrito-teal-100: #97C4BD;
+  --color-pyrito-teal-300: #5BA89A;
+  --color-pyrito-teal: #1F7A82;
+  --color-pyrito-teal-700: #0F4A52;
+  --color-pyrito-abyss: #07262B;
+  --color-pyrito-ember: #F86B3C;
+  --color-pyrito-off-white: #F4F6F5;
+  --color-pyrito-ink: #0B0F0E;
   --color-chart-1: var(--chart-1);
   --color-chart-2: var(--chart-2);
   --color-chart-3: var(--chart-3);
@@ -150,148 +150,152 @@ input:-webkit-autofill:active {
     Menlo,
     Monaco,
     Consolas,
-    "Liberation Mono",
-    "Courier New",
     monospace;
   --radius: 0.625rem;
-  --accent: var(--color-hive-50);
-  --accent-foreground: var(--color-hive-900);
-  --background: var(--color-offwhite);
+  --accent: var(--color-pyrito-teal-50);
+  --accent-foreground: var(--color-pyrito-abyss);
+  --background: var(--color-white);
   --border: color-mix(
     in srgb,
-    var(--color-hive-700) 14%,
-    var(--color-offwhite)
+    var(--color-pyrito-teal-700) 14%,
+    var(--color-white)
   );
-  --card: var(--color-white);
-  --card-foreground: var(--color-ink);
-  --destructive: var(--color-red-500);
-  --destructive-foreground: var(--color-red-700);
-  --foreground: var(--color-ink);
-  --info: var(--color-blue-500);
-  --info-foreground: var(--color-blue-700);
+  --card: var(--color-pyrito-off-white);
+  --card-foreground: var(--color-pyrito-ink);
+  --destructive: var(--color-pyrito-ember);
+  --destructive-foreground: var(--color-pyrito-ink);
+  --foreground: var(--color-pyrito-ink);
+  --info: var(--color-pyrito-teal-50);
+  --info-foreground: var(--color-pyrito-teal-700);
   --input: color-mix(
     in srgb,
-    var(--color-hive-700) 18%,
-    var(--color-offwhite)
+    var(--color-pyrito-teal-700) 18%,
+    var(--color-white)
   );
   --muted: color-mix(
     in srgb,
-    var(--color-hive-50) 72%,
-    var(--color-offwhite)
+    var(--color-pyrito-teal-50) 72%,
+    var(--color-white)
   );
-  --muted-foreground: var(--color-hive-700);
-  --popover: var(--color-white);
-  --popover-foreground: var(--color-ink);
-  /* Buttons render hover at 90% alpha. Darkening Hive 500 by one brand step
-     keeps white text AA-compliant over the off-white canvas in both states. */
-  --primary: color-mix(
-    in srgb,
-    var(--color-hive-500) 80%,
-    var(--color-hive-700)
-  );
+  --muted-foreground: var(--color-pyrito-teal-700);
+  --popover: var(--color-pyrito-off-white);
+  --popover-foreground: var(--color-pyrito-ink);
+  --primary: var(--color-pyrito-teal);
   --primary-foreground: var(--color-white);
-  --ring: var(--color-hive-500);
-  --secondary: var(--color-hive-50);
-  --secondary-foreground: var(--color-hive-900);
-  --success: var(--color-emerald-500);
-  --success-foreground: var(--color-emerald-700);
-  --warning: var(--color-amber-500);
-  --warning-foreground: var(--color-amber-700);
-  --chart-1: var(--color-ember);
-  --chart-2: var(--color-hive-500);
-  --chart-3: var(--color-hive-900);
-  --chart-4: var(--color-amber-400);
-  --chart-5: var(--color-purple-500);
-  --sidebar: var(--color-hive-50);
-  --sidebar-foreground: var(--color-hive-700);
+  --ring: var(--color-pyrito-teal);
+  --secondary: var(--color-pyrito-teal-50);
+  --secondary-foreground: var(--color-pyrito-abyss);
+  --success: var(--color-pyrito-teal-100);
+  --success-foreground: var(--color-pyrito-abyss);
+  --warning: color-mix(
+    in srgb,
+    var(--color-pyrito-ember) 18%,
+    var(--color-white)
+  );
+  --warning-foreground: color-mix(
+    in srgb,
+    var(--color-pyrito-ember) 72%,
+    var(--color-pyrito-ink)
+  );
+  --chart-1: var(--color-pyrito-teal);
+  --chart-2: var(--color-pyrito-teal-300);
+  --chart-3: var(--color-pyrito-teal-700);
+  --chart-4: var(--color-pyrito-abyss);
+  --chart-5: var(--color-pyrito-ember);
+  --sidebar: var(--color-pyrito-teal-50);
+  --sidebar-foreground: var(--color-pyrito-teal-700);
   --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--color-white);
   --sidebar-accent: color-mix(
     in srgb,
-    var(--color-hive-100) 44%,
-    var(--color-hive-50)
+    var(--color-pyrito-teal-100) 44%,
+    var(--color-pyrito-teal-50)
   );
-  --sidebar-accent-foreground: var(--color-hive-900);
+  --sidebar-accent-foreground: var(--color-pyrito-abyss);
   --sidebar-border: color-mix(
     in srgb,
-    var(--color-hive-700) 14%,
-    var(--color-hive-50)
+    var(--color-pyrito-teal-700) 14%,
+    var(--color-pyrito-teal-50)
   );
-  --sidebar-ring: var(--color-hive-500);
-  --code: var(--color-white);
+  --sidebar-ring: var(--color-pyrito-teal);
+  --code: var(--color-pyrito-off-white);
   --code-foreground: var(--foreground);
-  --code-highlight: var(--color-hive-50);
+  --code-highlight: var(--color-pyrito-teal-50);
 }
 
 .dark {
   --accent: color-mix(
     in srgb,
-    var(--color-hive-700) 58%,
-    var(--color-ink)
+    var(--color-pyrito-teal-700) 58%,
+    var(--color-pyrito-ink)
   );
-  --accent-foreground: var(--color-hive-50);
-  --background: var(--color-ink);
+  --accent-foreground: var(--color-pyrito-teal-50);
+  --background: var(--color-pyrito-ink);
   --border: color-mix(
     in srgb,
-    var(--color-hive-100) 16%,
-    var(--color-ink)
+    var(--color-pyrito-teal-100) 16%,
+    var(--color-pyrito-ink)
   );
-  --card: var(--color-hive-900);
-  --card-foreground: var(--color-offwhite);
-  --destructive: color-mix(in srgb, var(--color-red-500) 90%, var(--color-white));
-  --destructive-foreground: var(--color-red-400);
-  --foreground: var(--color-offwhite);
-  --info: var(--color-blue-500);
-  --info-foreground: var(--color-blue-400);
+  --card: var(--color-pyrito-abyss);
+  --card-foreground: var(--color-pyrito-off-white);
+  --destructive: var(--color-pyrito-ember);
+  --destructive-foreground: var(--color-pyrito-ink);
+  --foreground: var(--color-pyrito-off-white);
+  --info: var(--color-pyrito-teal-700);
+  --info-foreground: var(--color-pyrito-teal-50);
   --input: color-mix(
     in srgb,
-    var(--color-hive-100) 20%,
-    var(--color-ink)
+    var(--color-pyrito-teal-100) 20%,
+    var(--color-pyrito-ink)
   );
   --muted: color-mix(
     in srgb,
-    var(--color-hive-900) 70%,
-    var(--color-ink)
+    var(--color-pyrito-abyss) 70%,
+    var(--color-pyrito-ink)
   );
-  --muted-foreground: var(--color-hive-100);
-  --popover: var(--color-hive-900);
-  --popover-foreground: var(--color-offwhite);
-  --primary: var(--color-hive-500);
+  --muted-foreground: var(--color-pyrito-teal-100);
+  --popover: var(--color-pyrito-abyss);
+  --popover-foreground: var(--color-pyrito-off-white);
+  --primary: var(--color-pyrito-teal);
   --primary-foreground: var(--color-white);
-  --ring: var(--color-hive-300);
-  --secondary: var(--color-hive-900);
-  --secondary-foreground: var(--color-hive-50);
-  --success: var(--color-emerald-500);
-  --success-foreground: var(--color-emerald-400);
-  --warning: var(--color-amber-500);
-  --warning-foreground: var(--color-amber-400);
-  --chart-1: var(--color-ember);
-  --chart-2: var(--color-hive-300);
-  --chart-3: var(--color-hive-100);
-  --chart-4: var(--color-amber-400);
-  --chart-5: var(--color-purple-400);
+  --ring: var(--color-pyrito-teal-300);
+  --secondary: var(--color-pyrito-abyss);
+  --secondary-foreground: var(--color-pyrito-teal-50);
+  --success: var(--color-pyrito-teal-300);
+  --success-foreground: var(--color-pyrito-ink);
+  --warning: color-mix(
+    in srgb,
+    var(--color-pyrito-ember) 24%,
+    var(--color-pyrito-ink)
+  );
+  --warning-foreground: var(--color-pyrito-ember);
+  --chart-1: var(--color-pyrito-teal);
+  --chart-2: var(--color-pyrito-teal-300);
+  --chart-3: var(--color-pyrito-teal-100);
+  --chart-4: var(--color-pyrito-teal-700);
+  --chart-5: var(--color-pyrito-ember);
   --sidebar: color-mix(
     in srgb,
-    var(--color-hive-900) 82%,
-    var(--color-ink)
+    var(--color-pyrito-abyss) 82%,
+    var(--color-pyrito-ink)
   );
-  --sidebar-foreground: var(--color-hive-100);
-  --sidebar-primary: var(--color-hive-500);
+  --sidebar-foreground: var(--color-pyrito-teal-100);
+  --sidebar-primary: var(--color-pyrito-teal);
   --sidebar-primary-foreground: var(--color-white);
-  --sidebar-accent: var(--color-hive-700);
-  --sidebar-accent-foreground: var(--color-hive-50);
+  --sidebar-accent: var(--color-pyrito-teal-700);
+  --sidebar-accent-foreground: var(--color-pyrito-teal-50);
   --sidebar-border: color-mix(
     in srgb,
-    var(--color-hive-100) 14%,
+    var(--color-pyrito-teal-100) 14%,
     var(--sidebar)
   );
-  --sidebar-ring: var(--color-hive-300);
-  --code: var(--color-hive-900);
+  --sidebar-ring: var(--color-pyrito-teal-300);
+  --code: var(--color-pyrito-abyss);
   --code-foreground: var(--foreground);
   --code-highlight: color-mix(
     in srgb,
-    var(--color-hive-700) 46%,
-    var(--color-hive-900)
+    var(--color-pyrito-teal-700) 46%,
+    var(--color-pyrito-abyss)
   );
 }
 

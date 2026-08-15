@@ -36,7 +36,7 @@ export type ParsedInstallArgs = {
 export function parseInstallArgs(argv: string[]): ParsedInstallArgs {
   let target: string | undefined;
   let output: string | undefined;
-  let name = "kaneo";
+  let name = "pyrito_ops";
   let yes = false;
   let apiUrl: string | undefined;
   let projectDir = process.cwd();
@@ -324,7 +324,7 @@ export async function runInstall(argv: string[]): Promise<void> {
 }
 
 function printInstallHelp(): void {
-  console.log(`kaneo-mcp install: register Kaneo in an MCP client config
+  console.log(`kaneo-mcp install: register Pyrito Ops in an MCP client config
 
 Usage:
   kaneo-mcp install [options]
@@ -335,7 +335,7 @@ Options:
   --target <id>       ${VALID_TARGETS.join(" | ")}
   --output <path>     Required for --target custom (absolute path to JSON file)
   --project-dir <dir> Base directory for cursor-project (default: current dir)
-  --name <string>     MCP server key under mcpServers (default: kaneo)
+  --name <string>     MCP server key under mcpServers (default: pyrito_ops)
   --api-url <url>     Set KANEO_API_URL in the generated entry (optional)
   -y, --yes           Overwrite existing entry without prompting
   -h, --help          Show this help

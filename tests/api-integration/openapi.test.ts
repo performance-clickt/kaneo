@@ -18,7 +18,7 @@ describe("API integration: openapi", () => {
     };
 
     expect(payload.openapi).toBe("3.0.3");
-    expect(payload.info?.title).toBe("Clickt HiveMind API");
+    expect(payload.info?.title).toBe("Pyrito Ops API");
     expect(payload.paths?.["/config"]).toBeTruthy();
     expect(
       Object.keys(payload.paths || {}).some((path) =>

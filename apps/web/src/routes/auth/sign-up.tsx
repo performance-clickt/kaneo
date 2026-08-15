@@ -104,7 +104,7 @@ function SignUp() {
         title={
           isInstanceAdminSetup
             ? t("auth:signUp.instanceAdminTitle", {
-                defaultValue: "Set up your Clickt HiveMind instance",
+                defaultValue: "Set up your Pyrito Ops instance",
               })
             : t("auth:signUp.title")
         }

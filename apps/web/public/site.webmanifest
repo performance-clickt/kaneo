@@ -1,7 +1,7 @@
 {
-	"name": "Clickt HiveMind",
-	"short_name": "Clickt HiveMind",
-	"description": "Clickt's self-hosted workspace for planning projects, managing tasks, and collaborating as a team.",
+	"name": "Pyrito Ops",
+	"short_name": "Pyrito Ops",
+	"description": "A self-hosted workspace for planning projects, managing tasks, and collaborating with your team.",
 	"id": "/",
 	"start_url": "/",
 	"scope": "/",
@@ -19,7 +19,7 @@
 			"purpose": "any maskable"
 		}
 	],
-	"theme_color": "#07262B",
-	"background_color": "#07262B",
+	"theme_color": "#0B0F0E",
+	"background_color": "#0B0F0E",
 	"display": "standalone"
 }

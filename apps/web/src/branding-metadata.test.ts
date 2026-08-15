@@ -23,9 +23,9 @@ afterEach(() => {
   document.head.innerHTML = "";
 });
 
-describe("Clickt HiveMind web metadata", () => {
+describe("Pyrito Ops web metadata", () => {
   it("uses relative root URLs as the intentional deployment-neutral boundary", () => {
-    expect(indexHtml).toContain("<title>Clickt HiveMind</title>");
+    expect(indexHtml).toContain("<title>Pyrito Ops</title>");
     expect(indexHtml).toContain(
       '<link rel="canonical" href="/" data-origin-path="/" vite-ignore>',
     );
@@ -69,10 +69,10 @@ describe("Clickt HiveMind web metadata", () => {
 
   it("ships a branded install manifest whose declared assets exist", () => {
     expect(manifest).toMatchObject({
-      name: "Clickt HiveMind",
-      short_name: "Clickt HiveMind",
-      theme_color: "#07262B",
-      background_color: "#07262B",
+      name: "Pyrito Ops",
+      short_name: "Pyrito Ops",
+      theme_color: "#0B0F0E",
+      background_color: "#0B0F0E",
     });
 
     for (const icon of manifest.icons) {

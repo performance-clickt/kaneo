@@ -1,16 +1,17 @@
-name: Publish Clickt bundled image
+name: Publish Pyrito Ops bundled image
 
 on:
   workflow_dispatch:
 
 concurrency:
-  group: clickt-image-${{ github.sha }}
+  group: pyrito-image-${{ github.sha }}
   cancel-in-progress: false
 
 env:
   IMAGE: ghcr.io/performance-clickt/kaneo
   UPSTREAM_VERSION: "2.18.0"
-  RESKIN_REVISION: 4a5f68c4543dd58dc32bddb03259e4a7263239de
+  BRAND_VERSION: "1.2.0"
+  BRAND_REVISION: 285d84816f2a8659148a4e9e692e14fdde6242a571ccd296b424f08ed89db866
 
 jobs:
   publish:
@@ -36,11 +37,11 @@ jobs:
           package_version="$(jq -r '.version' package.json)"
           test "$package_version" = "$UPSTREAM_VERSION"
           test "$(git rev-parse HEAD)" = "$SOURCE_REVISION"
-          git merge-base --is-ancestor "$RESKIN_REVISION" "$SOURCE_REVISION"
+          test "$(sha256sum brand/pyrito/pyrito-brand.json | cut -d' ' -f1)" = "$BRAND_REVISION"
 
-          short_reskin="${RESKIN_REVISION:0:12}"
+          short_brand="${BRAND_REVISION:0:12}"
           short_source="${SOURCE_REVISION:0:12}"
-          image_version="v${UPSTREAM_VERSION}-clickt.${short_reskin}.${short_source}"
+          image_version="v${UPSTREAM_VERSION}-pyrito-ops.${BRAND_VERSION}.${short_brand}.${short_source}"
           image_ref="${IMAGE}:${image_version}"
 
           echo "image_version=$image_version" >> "$GITHUB_OUTPUT"
@@ -77,27 +78,29 @@ jobs:
           platforms: linux/amd64
           load: true
           push: false
-          tags: clickt-hivemind-smoke:${{ github.sha }}
+          tags: pyrito-smoke:${{ github.sha }}
           build-args: |
             OCI_SOURCE=https://github.com/${{ github.repository }}
             OCI_REVISION=${{ github.sha }}
             OCI_VERSION=${{ steps.version.outputs.image_version }}
             KANEO_UPSTREAM_VERSION=${{ env.UPSTREAM_VERSION }}
-            CLICKT_RESKIN_REVISION=${{ env.RESKIN_REVISION }}
+            PYRITO_BRAND_VERSION=${{ env.BRAND_VERSION }}
+            PYRITO_BRAND_REVISION=${{ env.BRAND_REVISION }}
           cache-from: type=gha
 
       - name: Smoke test clean bundled container
         env:
-          SMOKE_IMAGE: clickt-hivemind-smoke:${{ github.sha }}
+          SMOKE_IMAGE: pyrito-smoke:${{ github.sha }}
           IMAGE_VERSION: ${{ steps.version.outputs.image_version }}
         run: |
-          scripts/smoke-clickt-image.sh \
+          scripts/smoke-pyrito-image.sh \
             "$SMOKE_IMAGE" \
             "https://github.com/$GITHUB_REPOSITORY" \
             "$GITHUB_SHA" \
             "$IMAGE_VERSION" \
             "$UPSTREAM_VERSION" \
-            "$RESKIN_REVISION" \
+            "$BRAND_VERSION" \
+            "$BRAND_REVISION" \
             amd64
 
       - name: Build and publish multi-architecture image
@@ -110,20 +113,22 @@ jobs:
           push: true
           tags: ${{ steps.version.outputs.image_ref }}
           labels: |
-            org.opencontainers.image.title=Clickt HiveMind
-            org.opencontainers.image.description=Clickt's self-hosted project management workspace
+            org.opencontainers.image.title=Pyrito Ops
+            org.opencontainers.image.description=Pyrito Ops self-hosted project management workspace
             org.opencontainers.image.source=https://github.com/${{ github.repository }}
             org.opencontainers.image.revision=${{ github.sha }}
             org.opencontainers.image.version=${{ steps.version.outputs.image_version }}
             org.opencontainers.image.licenses=MIT
-            io.clickt.kaneo.upstream-version=${{ env.UPSTREAM_VERSION }}
-            io.clickt.kaneo.reskin-revision=${{ env.RESKIN_REVISION }}
+            io.pyrito.kaneo.upstream-version=${{ env.UPSTREAM_VERSION }}
+            io.pyrito.kaneo.brand-version=${{ env.BRAND_VERSION }}
+            io.pyrito.kaneo.brand-revision=${{ env.BRAND_REVISION }}
           build-args: |
             OCI_SOURCE=https://github.com/${{ github.repository }}
             OCI_REVISION=${{ github.sha }}
             OCI_VERSION=${{ steps.version.outputs.image_version }}
             KANEO_UPSTREAM_VERSION=${{ env.UPSTREAM_VERSION }}
-            CLICKT_RESKIN_REVISION=${{ env.RESKIN_REVISION }}
+            PYRITO_BRAND_VERSION=${{ env.BRAND_VERSION }}
+            PYRITO_BRAND_REVISION=${{ env.BRAND_REVISION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
           provenance: mode=max
@@ -143,24 +148,26 @@ jobs:
             --arg digest "$DIGEST" \
             --arg version "$IMAGE_VERSION" \
             --arg upstreamVersion "$UPSTREAM_VERSION" \
-            --arg reskinRevision "$RESKIN_REVISION" \
+            --arg brandVersion "$BRAND_VERSION" \
+            --arg brandRevision "$BRAND_REVISION" \
             --arg sourceRevision "$SOURCE_REVISION" \
-            '{image: $image, tag: $tag, digest: $digest, immutableRef: ($image + "@" + $digest), version: $version, upstreamVersion: $upstreamVersion, reskinRevision: $reskinRevision, sourceRevision: $sourceRevision, platforms: ["linux/amd64", "linux/arm64"]}' \
-            > clickt-image-metadata.json
+            '{image: $image, tag: $tag, digest: $digest, immutableRef: ($image + "@" + $digest), version: $version, upstreamVersion: $upstreamVersion, brandVersion: $brandVersion, brandRevision: $brandRevision, sourceRevision: $sourceRevision, platforms: ["linux/amd64", "linux/arm64"]}' \
+            > pyrito-image-metadata.json
 
           {
-            echo "### Clickt image published"
+            echo "### Pyrito Ops image published"
             echo
             echo "- Tag: \`$IMAGE_REF\`"
             echo "- Immutable reference: \`$IMAGE@$DIGEST\`"
             echo "- Source revision: \`$SOURCE_REVISION\`"
-            echo "- Reskin revision: \`$RESKIN_REVISION\`"
+            echo "- Brand version: \`$BRAND_VERSION\`"
+            echo "- Brand revision: \`$BRAND_REVISION\`"
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload digest metadata
         uses: actions/upload-artifact@v6
         with:
-          name: clickt-image-${{ steps.version.outputs.image_version }}
-          path: clickt-image-metadata.json
+          name: pyrito-image-${{ steps.version.outputs.image_version }}
+          path: pyrito-image-metadata.json
           if-no-files-found: error
           retention-days: 90

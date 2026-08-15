@@ -8,7 +8,7 @@ describe("OtpEmail", () => {
     const html = await render(createElement(OtpEmail, { otp: "123456" }));
     expect(html).toContain("123456");
     expect(html).toContain("verification code");
-    expect(html).toContain("Clickt HiveMind");
+    expect(html).toContain("Pyrito Ops");
     expect(html).not.toMatch(/\bKaneo\b/);
   });
 });

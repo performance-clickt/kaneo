@@ -409,17 +409,17 @@ export function createApp() {
     documentation: {
       openapi: "3.0.3",
       info: {
-        title: "Clickt HiveMind API",
+        title: "Pyrito Ops API",
         version: "1.0.0",
         description:
-          "Clickt HiveMind project management API - Manage projects, tasks, labels, and more",
+          "Pyrito Ops project management API - Manage projects, tasks, labels, and more",
       },
       servers: [
         {
           url: normalizeApiServerUrl(
             process.env.KANEO_API_URL || "https://cloud.kaneo.app",
           ),
-          description: "Clickt HiveMind API server",
+          description: "Pyrito Ops API server",
         },
       ],
       components: {

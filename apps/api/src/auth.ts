@@ -141,21 +141,21 @@ function getAuthEmailCopy(locale?: string | null) {
 
   if (localeKey === "de") {
     return {
-      magicLinkSubject: "Anmeldelink fuer Clickt HiveMind",
-      otpSubject: "Bestaetigungscode fuer Clickt HiveMind",
+      magicLinkSubject: "Anmeldelink fuer Pyrito Ops",
+      otpSubject: "Bestaetigungscode fuer Pyrito Ops",
     };
   }
 
   if (localeKey === "vi") {
     return {
-      magicLinkSubject: "Liên kết đăng nhập Clickt HiveMind",
-      otpSubject: "Mã xác minh Clickt HiveMind",
+      magicLinkSubject: "Liên kết đăng nhập Pyrito Ops",
+      otpSubject: "Mã xác minh Pyrito Ops",
     };
   }
 
   return {
-    magicLinkSubject: "Login for Clickt HiveMind",
-    otpSubject: "Authentication code for Clickt HiveMind",
+    magicLinkSubject: "Login for Pyrito Ops",
+    otpSubject: "Authentication code for Pyrito Ops",
   };
 }
 

@@ -170,7 +170,7 @@ async function sendTelegramMessage(
     `<b>Project:</b> ${escapeHtml(data.projectName)}`,
     `<b>Status:</b> ${escapeHtml(toSentenceCase(data.status))}`,
     `<b>Priority:</b> ${escapeHtml(toSentenceCase(data.priority))}`,
-    `<b>Triggered by:</b> ${escapeHtml(data.actorName ?? "Clickt HiveMind")}`,
+    `<b>Triggered by:</b> ${escapeHtml(data.actorName ?? "Pyrito Ops")}`,
   ];
 
   try {

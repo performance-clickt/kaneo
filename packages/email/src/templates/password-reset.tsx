@@ -13,7 +13,7 @@ export type PasswordResetEmailProps = {
 
 const messages = {
   en: {
-    preview: "Reset your Clickt HiveMind password",
+    preview: "Reset your Pyrito Ops password",
     title: "Reset your password",
     subtitleWithName: (name: string) =>
       `Hi ${name}, use the button below to set a new password.`,
@@ -21,10 +21,10 @@ const messages = {
     cta: "Reset password",
     expiry: "This reset link expires in 1 hour.",
     ignore: "If you didn't request this, no changes will be made.",
-    footer: "Clickt HiveMind security email",
+    footer: "Pyrito Ops security email",
   },
   de: {
-    preview: "Setze dein Clickt HiveMind-Passwort zurueck",
+    preview: "Setze dein Pyrito Ops-Passwort zurueck",
     title: "Passwort zuruecksetzen",
     subtitleWithName: (name: string) =>
       `Hallo ${name}, verwende die Schaltflaeche unten, um ein neues Passwort festzulegen.`,
@@ -34,10 +34,10 @@ const messages = {
     expiry: "Dieser Link laeuft in 1 Stunde ab.",
     ignore:
       "Wenn du das nicht angefordert hast, werden keine Aenderungen vorgenommen.",
-    footer: "Clickt HiveMind Sicherheits-E-Mail",
+    footer: "Pyrito Ops Sicherheits-E-Mail",
   },
   vi: {
-    preview: "Đặt lại mật khẩu Clickt HiveMind của bạn",
+    preview: "Đặt lại mật khẩu Pyrito Ops của bạn",
     title: "Đặt lại mật khẩu",
     subtitleWithName: (name: string) =>
       `Chào ${name}, hãy dùng nút bên dưới để đặt mật khẩu mới.`,
@@ -46,7 +46,7 @@ const messages = {
     expiry: "Liên kết đặt lại này sẽ hết hạn sau 1 giờ.",
     ignore:
       "Nếu bạn không yêu cầu điều này, sẽ không có thay đổi nào được thực hiện.",
-    footer: "Email bảo mật Clickt HiveMind",
+    footer: "Email bảo mật Pyrito Ops",
   },
 } as const;
 
@@ -79,7 +79,7 @@ const PasswordResetEmail = ({
 };
 
 PasswordResetEmail.PreviewProps = {
-  resetLink: "https://hivemind.example.com/auth/reset-password?token=example",
+  resetLink: "https://pyrito.example.com/auth/reset-password?token=example",
   userName: "Jane",
 } as PasswordResetEmailProps;
 

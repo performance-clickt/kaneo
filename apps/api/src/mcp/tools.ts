@@ -233,7 +233,7 @@ export function registerMcpTools(
   registerTool(
     "whoami",
     {
-      description: "Return the current Clickt HiveMind session and user.",
+      description: "Return the current Pyrito Ops session and user.",
       inputSchema: z.object({}),
     },
     async () =>

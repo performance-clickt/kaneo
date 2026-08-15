@@ -9,6 +9,10 @@ import { Hono } from "hono";
 import { describeRoute, resolver, validator } from "hono-openapi";
 import { auth } from "../auth";
 import {
+  createPyritoOpsMcpServerInfo,
+  PYRITO_OPS_MCP_INSTRUCTIONS,
+} from "./branding";
+import {
   beginMcpAuthorization,
   decideMcpAuthorizationRequest,
   getMcpAuthorizationRequest,
@@ -45,10 +49,10 @@ type McpSession = {
 const sessions = new Map<string, McpSession>();
 
 function createMcpServerForUser(token: string): LegacyMcpServer {
-  const server = new LegacyMcpServer({
-    name: "kaneo-mcp",
-    version: "1.0.0",
-  });
+  const server = new LegacyMcpServer(
+    createPyritoOpsMcpServerInfo(publicApiUrl, "1.0.0"),
+    { instructions: PYRITO_OPS_MCP_INSTRUCTIONS },
+  );
   registerMcpTools(toMcpToolRegistrar(server), internalApiUrl, token);
   return server;
 }
@@ -108,7 +112,7 @@ mcp.get(
     description: "Start an explicit MCP OAuth consent request",
     security: [],
     responses: {
-      302: { description: "Redirect to the Clickt HiveMind consent page" },
+      302: { description: "Redirect to the Pyrito Ops consent page" },
       400: {
         description: "Invalid authorization request",
         content: {
@@ -305,7 +309,11 @@ mcp.all("/mcp", async (c) => {
   }
 
   if (!(await isLegacyRequest(c.req.raw.clone()))) {
-    const modern = createModernMcpHandler(authResult.token, internalApiUrl);
+    const modern = createModernMcpHandler(
+      authResult.token,
+      internalApiUrl,
+      publicApiUrl,
+    );
     return modern.fetch(c.req.raw);
   }
 
