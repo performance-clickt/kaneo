@@ -154,8 +154,8 @@ jobs:
       SMOKE_IMAGE: pyrito-ci:${{ github.sha }}
       IMAGE_VERSION: ci-${{ github.sha }}
       UPSTREAM_VERSION: "2.18.0"
-      BRAND_VERSION: "1.1.0"
-      BRAND_REVISION: 3fd1877135ce4ab52605ddda7cb46d564499890c935244fe36a3e28fb4f8f934
+      BRAND_VERSION: "1.2.0"
+      BRAND_REVISION: 285d84816f2a8659148a4e9e692e14fdde6242a571ccd296b424f08ed89db866
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
