@@ -1,0 +1,49 @@
+:root {
+  /* Typography */
+  --font-sans: "Cal Sans UI", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Cal Sans Heading", var(--font-sans);
+  --font-mono: "Paper Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Brand colors */
+  --pyrito-ink: #0B0F0E;
+  --pyrito-abyss: #07262B;
+  --pyrito-teal-50: #DAE9E6;
+  --pyrito-teal-100: #97C4BD;
+  --pyrito-teal-300: #5BA89A;
+  --pyrito-teal: #1F7A82;
+  --pyrito-teal-700: #0F4A52;
+  --pyrito-ember: #F86B3C;
+  --pyrito-edge-cyan: #46E5DA;
+  --pyrito-facet-mid: #0B333A;
+  --pyrito-off-white: #F4F6F5;
+  --pyrito-white: #FFFFFF;
+
+  /* Semantic defaults */
+  --surface-dark: var(--pyrito-ink);
+  --surface-brand: var(--pyrito-abyss);
+  --text-on-dark: var(--pyrito-off-white);
+  --accent-primary: var(--pyrito-teal);
+  --accent-emphasis: var(--pyrito-ember);
+  --surface-lockup-rule: var(--pyrito-teal);
+  --surface-lockup-terminal: var(--pyrito-ember);
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+h1,
+h2,
+h3,
+.display-heading {
+  font-family: var(--font-heading);
+}
+
+code,
+kbd,
+samp,
+pre,
+.technical,
+.identifier {
+  font-family: var(--font-mono);
+}

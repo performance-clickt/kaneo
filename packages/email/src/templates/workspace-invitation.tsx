@@ -63,19 +63,19 @@ WorkspaceInvitationEmail.PreviewProps = {
   workspaceName: "Acme Inc",
   inviterName: "John Doe",
   inviterEmail: "john@acme.com",
-  invitationLink: "https://hivemind.example.com/invite/abc123",
+  invitationLink: "https://pyrito.example.com/invite/abc123",
   to: "invitee@example.com",
   copy: {
     subject:
-      "{{inviterName}} invited you to join {{workspaceName}} on Clickt HiveMind",
-    preview: "You're invited to {{workspaceName}} on Clickt HiveMind",
+      "{{inviterName}} invited you to join {{workspaceName}} on Pyrito Ops",
+    preview: "You're invited to {{workspaceName}} on Pyrito Ops",
     title: "Join {{workspaceName}}",
     subtitle:
-      "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Clickt HiveMind.",
+      "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Pyrito Ops.",
     cta: "Accept invitation",
     sameEmail: "You can accept with the same email that received this message.",
     ignore: "If this wasn't expected, you can safely ignore this email.",
-    footer: "Clickt HiveMind workspace invitation",
+    footer: "Pyrito Ops workspace invitation",
   },
 } as WorkspaceInvitationEmailProps;
 

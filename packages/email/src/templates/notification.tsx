@@ -15,23 +15,23 @@ export type NotificationEmailProps = {
 
 const messages = {
   en: {
-    preview: "You have a new Clickt HiveMind notification",
+    preview: "You have a new Pyrito Ops notification",
     subtitle: "A notification matched your delivery preferences.",
-    footer: "Clickt HiveMind notification",
-    actionLabel: "Open in Clickt HiveMind",
+    footer: "Pyrito Ops notification",
+    actionLabel: "Open in Pyrito Ops",
   },
   de: {
-    preview: "Du hast eine neue Clickt HiveMind-Benachrichtigung",
+    preview: "Du hast eine neue Pyrito Ops-Benachrichtigung",
     subtitle:
       "Eine Benachrichtigung entspricht deinen Zustellungs-Einstellungen.",
-    footer: "Clickt HiveMind-Benachrichtigung",
-    actionLabel: "In Clickt HiveMind oeffnen",
+    footer: "Pyrito Ops-Benachrichtigung",
+    actionLabel: "In Pyrito Ops oeffnen",
   },
   vi: {
-    preview: "Bạn có thông báo mới từ Clickt HiveMind",
+    preview: "Bạn có thông báo mới từ Pyrito Ops",
     subtitle: "Một thông báo khớp với tùy chọn nhận thông báo của bạn.",
-    footer: "Thông báo Clickt HiveMind",
-    actionLabel: "Mở trong Clickt HiveMind",
+    footer: "Thông báo Pyrito Ops",
+    actionLabel: "Mở trong Pyrito Ops",
   },
 } as const;
 
@@ -63,7 +63,7 @@ const NotificationEmail = ({
 NotificationEmail.PreviewProps = {
   title: "Task assigned to you",
   message: "You were assigned to Design account notifications.",
-  actionUrl: "https://hivemind.example.com",
+  actionUrl: "https://pyrito.example.com",
 } as NotificationEmailProps;
 
 export default NotificationEmail;

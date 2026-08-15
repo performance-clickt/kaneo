@@ -46,7 +46,7 @@ export function registerTools(
     "whoami",
     {
       description:
-        "Return the current Kaneo session and user for the cached device token.",
+        "Return the current Pyrito Ops session and user for the cached device token.",
       inputSchema: z.object({}),
     },
     async () =>

@@ -20,13 +20,13 @@ import type Task from "@/types/task";
 const labelColors = [
   { value: "gray", key: "stone", color: "var(--color-stone-500)" },
   { value: "dark-gray", key: "slate", color: "var(--color-slate-500)" },
-  { value: "purple", key: "lavender", color: "var(--color-violet-500)" },
-  { value: "teal", key: "sage", color: "var(--color-emerald-600)" },
-  { value: "green", key: "forest", color: "var(--color-green-600)" },
-  { value: "yellow", key: "amber", color: "var(--color-amber-600)" },
-  { value: "orange", key: "terracotta", color: "var(--color-orange-600)" },
-  { value: "pink", key: "rose", color: "var(--color-rose-600)" },
-  { value: "red", key: "crimson", color: "var(--color-red-600)" },
+  { value: "purple", key: "lavender", color: "var(--color-pyrito-teal-700)" },
+  { value: "teal", key: "sage", color: "var(--color-pyrito-teal-300)" },
+  { value: "green", key: "forest", color: "var(--color-pyrito-teal)" },
+  { value: "yellow", key: "amber", color: "var(--color-pyrito-teal-100)" },
+  { value: "orange", key: "terracotta", color: "var(--color-pyrito-teal-700)" },
+  { value: "pink", key: "rose", color: "var(--color-pyrito-teal-300)" },
+  { value: "red", key: "crimson", color: "var(--color-pyrito-ember)" },
 ];
 
 type LabelColor =

@@ -1,19 +1,19 @@
-# Kaneo MCP server
+# Pyrito Ops MCP server
 
-[`@kaneo/mcp`](https://www.npmjs.com/package/@kaneo/mcp) is the official MCP (Model Context Protocol) server for [Kaneo](https://kaneo.app), the open source project management platform. It is maintained in the [usekaneo/kaneo](https://github.com/usekaneo/kaneo) monorepo and published to npm by the Kaneo team.
+This fork presents the bundled HTTP and stdio MCP servers as **Pyrito Ops**. The existing [`@kaneo/mcp`](https://www.npmjs.com/package/@kaneo/mcp) package name, `kaneo-mcp` binary, environment variables, device client ID, and credential directory remain unchanged compatibility identifiers inherited from upstream Kaneo.
 
-It runs over stdio, signs in with Kaneo's device flow, and then calls the Kaneo API with a bearer token. The package lives in `packages/mcp` in this monorepo and exposes the `kaneo-mcp` CLI.
+It runs over stdio, signs in with Pyrito Ops's device flow, and then calls the Pyrito Ops API with a bearer token. The package lives in `packages/mcp` in this monorepo and exposes the `kaneo-mcp` CLI.
 
-> **Tip:** Every Kaneo instance also ships a built-in HTTP MCP endpoint at `/api/mcp`. If your MCP client supports Streamable HTTP transport (e.g. Claude Code), you can connect directly without this package. See the [MCP docs](https://kaneo.app/docs/core/integrations/mcp) for details.
+> **Tip:** Every Pyrito Ops instance also ships a built-in HTTP MCP endpoint at `/api/mcp`. If your MCP client supports Streamable HTTP transport, connect directly without this compatibility package. The [upstream MCP documentation](https://kaneo.app/docs/core/integrations/mcp) remains the protocol reference.
 
 ## Prerequisites
 
 - Node.js 20+
-- A running Kaneo API (for example `http://localhost:1337`) and web app (for device approval UI).
+- A running Pyrito Ops API (for example `http://localhost:1337`) and web app (for device approval UI).
 
-Kaneo allows `kaneo-cli` and `kaneo-mcp` by default, so you usually do not need extra server configuration.
+Pyrito Ops allows `kaneo-cli` and `kaneo-mcp` by default, so you usually do not need extra server configuration.
 
-If you want to run this server with a different client ID, allow it on the Kaneo server:
+If you want to run this server with a different client ID, allow it on the Pyrito Ops server:
 
 ```bash
 DEVICE_AUTH_CLIENT_IDS=kaneo-cli,kaneo-mcp,your-client-id
@@ -23,11 +23,24 @@ DEVICE_AUTH_CLIENT_IDS=kaneo-cli,kaneo-mcp,your-client-id
 
 | Variable | Description |
 |----------|-------------|
-| `KANEO_API_URL` | Kaneo API origin (default `http://localhost:1337`). Do not include `/api`. |
+| `KANEO_API_URL` | Pyrito Ops API origin (default `http://localhost:1337`). Do not include `/api`. |
 | `KANEO_MCP_CLIENT_ID` | Device-flow client id (default `kaneo-mcp`). Must match `DEVICE_AUTH_CLIENT_IDS` on the server. |
-| `KANEO_API_KEY` | **Optional.** A Kaneo API key (create one under Settings → Account → Developer). When set, the server authenticates with it as a Bearer token and skips the interactive device flow. Use this for headless/Docker setups. |
+| `KANEO_API_KEY` | **Optional.** A Pyrito Ops API key (create one under Settings → Account → Developer). When set, the server authenticates with it as a Bearer token and skips the interactive device flow. Use this for headless/Docker setups. |
 
 ## Install
+
+### Codex
+
+Use the product surface name as the Codex server key so tool frames appear under `pyrito_ops`:
+
+```bash
+codex mcp add pyrito_ops --url https://projects.gethivemind.co/api/mcp
+codex mcp login pyrito_ops
+```
+
+Restart Codex after replacing an existing `kaneo` registration, then verify the tool inventory and a read-only call before removing the old registration.
+
+### Stdio compatibility package
 
 **Recommended (no global install):** run the interactive installer with npx:
 
@@ -101,7 +114,7 @@ The CLI entry points to `./dist/index.js`. Use `npx @kaneo/mcp` or `kaneo-mcp` a
 
 ## Authentication
 
-On the first tool call that needs Kaneo, the server:
+On the first tool call that needs Pyrito Ops, the server:
 
 1. Requests a device code from `POST /api/auth/device/code`
 2. Prints the verification URL and user code to `stderr`
@@ -130,8 +143,6 @@ returns are the values `create_task` and `update_task_status` accept.
 Time entries have no delete endpoint on the API, so there is no
 `delete_time_entry` tool.
 
-## Releasing
+## Upstream package boundary
 
-Bump `version` in `packages/mcp/package.json` and merge to `main`. The [publish workflow](../../.github/workflows/publish-mcp.yml) runs the package tests, publishes the new version to npm, and creates a `mcp-v<version>` GitHub release. Nothing is published while the version stays the same, so tool changes reach npm only once the version is bumped.
-
-Publishing a GitHub release manually also works: tag it `mcp-v<version>` with the tag version matching `packages/mcp/package.json` on the tagged commit.
+The fork preserves the upstream registry and npm identifiers but does not publish them. The inherited [publish workflow](../../.github/workflows/publish-mcp.yml) remains guarded to `usekaneo/kaneo`. A fork-owned Pyrito Ops package or MCP Registry identity requires its own reviewed release task; this reskin only changes the bundled server identity and visible compatibility-package copy.

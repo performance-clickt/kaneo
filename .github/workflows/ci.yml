@@ -75,7 +75,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Verify Clickt reskin
+      - name: Verify Pyrito Ops reskin
         run: pnpm verify:reskin
 
       - name: Run unit tests
@@ -151,10 +151,11 @@ jobs:
   docker-build:
     runs-on: ubuntu-24.04
     env:
-      SMOKE_IMAGE: clickt-hivemind-ci:${{ github.sha }}
+      SMOKE_IMAGE: pyrito-ci:${{ github.sha }}
       IMAGE_VERSION: ci-${{ github.sha }}
       UPSTREAM_VERSION: "2.18.0"
-      RESKIN_REVISION: 4a5f68c4543dd58dc32bddb03259e4a7263239de
+      BRAND_VERSION: "1.2.0"
+      BRAND_REVISION: 285d84816f2a8659148a4e9e692e14fdde6242a571ccd296b424f08ed89db866
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7.0.1
@@ -176,17 +177,19 @@ jobs:
             OCI_REVISION=${{ github.sha }}
             OCI_VERSION=${{ env.IMAGE_VERSION }}
             KANEO_UPSTREAM_VERSION=${{ env.UPSTREAM_VERSION }}
-            CLICKT_RESKIN_REVISION=${{ env.RESKIN_REVISION }}
+            PYRITO_BRAND_VERSION=${{ env.BRAND_VERSION }}
+            PYRITO_BRAND_REVISION=${{ env.BRAND_REVISION }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-      - name: Smoke test bundled Clickt image
+      - name: Smoke test bundled Pyrito Ops image
         run: |
-          scripts/smoke-clickt-image.sh \
+          scripts/smoke-pyrito-image.sh \
             "$SMOKE_IMAGE" \
             "https://github.com/$GITHUB_REPOSITORY" \
             "$GITHUB_SHA" \
             "$IMAGE_VERSION" \
             "$UPSTREAM_VERSION" \
-            "$RESKIN_REVISION" \
+            "$BRAND_VERSION" \
+            "$BRAND_REVISION" \
             amd64

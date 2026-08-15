@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "Pyrito Ops",
 		"actions": {
 			"cancel": "Cancelar",
 			"close": "Fechar",
@@ -77,7 +77,7 @@
 				"errorToast": "Falha ao criar projeto"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKaneo": "PYRITO OPS",
 				"title": "Criar um novo espaço de trabalho",
 				"description": "Crie um novo espaço de trabalho fornecendo um nome para ele.",
 				"namePlaceholder": "Nome do espaço de trabalho",
@@ -196,7 +196,7 @@
 			"toggleMessage": "Já tem uma conta?",
 			"toggleLink": "Entrar",
 			"instanceStatusError": "Não foi possível acessar o servidor. Tente novamente em alguns instantes.",
-			"instanceAdminTitle": "Configure sua instância do Kaneo",
+			"instanceAdminTitle": "Configure sua instância do Pyrito Ops",
 			"instanceAdminSubtitle": "Esta conta se torna o administrador da instância, com acesso total."
 		},
 		"verifyOtp": {
@@ -254,7 +254,7 @@
 			"workspaceLabel": "Espaço de trabalho: {{workspaceName}}",
 			"joinWorkspace": "Entrar em {{workspaceName}}",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> convidou você para participar do espaço de trabalho dele.",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> convidou você para participar do espaço de trabalho dele no Kaneo.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> convidou você para participar do espaço de trabalho dele no Pyrito Ops.",
 			"createAccountOrSignIn": "Crie uma conta para aceitar este convite ou entre se já tiver uma.",
 			"createAccount": "Criar conta",
 			"accepting": "Aceitando...",
@@ -270,7 +270,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Bem-vindo ao Kaneo",
+			"pageTitle": "Bem-vindo ao Pyrito Ops",
 			"workspacePageTitle": "Criar espaço de trabalho",
 			"createWorkspaceTitle": "Criar espaço de trabalho",
 			"createWorkspaceSubtitle": "Configure seu espaço de trabalho para começar a gerenciar projetos",
@@ -362,7 +362,7 @@
 		"notificationsPage": {
 			"pageTitle": "Notificações",
 			"title": "Notificações",
-			"subtitle": "Escolha como o Kaneo entrega as notificações da sua conta e quais canais usar.",
+			"subtitle": "Escolha como o Pyrito Ops entrega as notificações da sua conta e quais canais usar.",
 			"statusConnected": "Conectado",
 			"statusPaused": "Pausado",
 			"emailTitle": "E-mail",
@@ -398,7 +398,7 @@
 			"webhookUrlPlaceholder": "https://exemplo.com/webhooks/kaneo",
 			"webhookSecretPlaceholder": "Segredo compartilhado opcional",
 			"webhookSecretHintConfigured": "Um segredo de assinatura já está configurado ({{masked}}). Digite um novo para substituí-lo.",
-			"webhookSecretHintOptional": "Opcional. O Kaneo assina o corpo da requisição quando um segredo é definido.",
+			"webhookSecretHintOptional": "Opcional. O Pyrito Ops assina o corpo da requisição quando um segredo é definido.",
 			"connectWebhook": "Conectar webhook",
 			"workspaceRulesTitle": "Regras de envio do espaço de trabalho",
 			"workspaceRulesDescription": "Reutilize seus canais globais e decida quais espaços de trabalho e projetos podem enviar notificações da conta.",
@@ -463,7 +463,7 @@
 		},
 		"preferencesPage": {
 			"title": "Preferências",
-			"subtitle": "Personalize sua experiência no Kaneo.",
+			"subtitle": "Personalize sua experiência no Pyrito Ops.",
 			"appearanceTitle": "Aparência",
 			"appearanceSubtitle": "Configurações visuais e preferências de layout.",
 			"theme": "Tema",
@@ -507,7 +507,7 @@
 			"title": "Configurações de desenvolvedor",
 			"subtitle": "Gerencie suas chaves de API e recursos de desenvolvedor.",
 			"apiKeysCardTitle": "Chaves de API",
-			"apiKeysCardDescription": "Crie e gerencie chaves de API para acesso programático ao Kaneo.",
+			"apiKeysCardDescription": "Crie e gerencie chaves de API para acesso programático ao Pyrito Ops.",
 			"createApiKey": "Criar chave de API",
 			"unnamedKey": "Chave sem nome"
 		},
@@ -546,7 +546,7 @@
 			},
 			"createDialog": {
 				"title": "Criar chave de API",
-				"description": "Crie uma nova chave de API para acessar a API do Kaneo de forma programática.",
+				"description": "Crie uma nova chave de API para acessar a API do Pyrito Ops de forma programática.",
 				"nameLabel": "Nome",
 				"namePlaceholder": "Minha chave de API",
 				"nameDescription": "Um nome descritivo para esta chave de API",
@@ -900,7 +900,7 @@
 				"removeError": "Falha ao remover a integração com o GitHub",
 				"issuesImported": "Issues importadas com sucesso",
 				"importError": "Falha ao importar issues",
-				"commentOnEnabled": "O Kaneo comentará com um link da tarefa em novas issues",
+				"commentOnEnabled": "O Pyrito Ops comentará com um link da tarefa em novas issues",
 				"commentOnDisabled": "Os comentários com link da tarefa em novas issues estão desativados",
 				"settingsUpdateError": "Falha ao atualizar a integração com o GitHub"
 			},
@@ -911,8 +911,8 @@
 			"badgeNotConnected": "Não conectado",
 			"repository": "Repositório",
 			"repositoryHint": "Repositório do GitHub conectado",
-			"commentTaskLinkTitle": "Comentar link do Kaneo em novas issues",
-			"commentTaskLinkHint": "Quando ativado, o Kaneo publica um comentário em cada nova issue do GitHub com um link para a tarefa.",
+			"commentTaskLinkTitle": "Comentar link do Pyrito Ops em novas issues",
+			"commentTaskLinkHint": "Quando ativado, o Pyrito Ops publica um comentário em cada nova issue do GitHub com um link para a tarefa.",
 			"appStatusTitle": "Status do GitHub App",
 			"appStatusHint": "Status da instalação e permissões",
 			"statusProperlyConfigured": "Configurado corretamente",
@@ -963,7 +963,7 @@
 				"removeError": "Falha ao remover a integração com o Gitea",
 				"issuesImported": "Issues importadas com sucesso",
 				"importError": "Falha ao importar issues",
-				"commentOnEnabled": "O Kaneo comentará com um link da tarefa em novas issues",
+				"commentOnEnabled": "O Pyrito Ops comentará com um link da tarefa em novas issues",
 				"commentOnDisabled": "Os comentários com link da tarefa em novas issues estão desativados",
 				"settingsUpdateError": "Falha ao atualizar a integração com o Gitea",
 				"secretCopied": "Copiado",
@@ -981,8 +981,8 @@
 			"badgeNotConnected": "Não conectado",
 			"repository": "Repositório",
 			"repositoryHint": "Repositório do Gitea vinculado",
-			"commentTaskLinkTitle": "Comentar link do Kaneo em novas issues",
-			"commentTaskLinkHint": "Quando ativado, o Kaneo publica um comentário em cada nova issue com um link para a tarefa.",
+			"commentTaskLinkTitle": "Comentar link do Pyrito Ops em novas issues",
+			"commentTaskLinkHint": "Quando ativado, o Pyrito Ops publica um comentário em cada nova issue com um link para a tarefa.",
 			"webhookTitle": "Webhook",
 			"webhookHint": "No seu repositório do Gitea, adicione um webhook com esta URL e segredo. Ative push, pull request, issues, comentários de issues e create (para etiquetas).",
 			"webhookSecretLabel": "Segredo (deve corresponder ao segredo do webhook no Gitea)",
@@ -1111,10 +1111,10 @@
 			"paused": "Pausado",
 			"webhookLabel": "URL do endpoint",
 			"webhookPlaceholder": "https://exemplo.com/webhooks/kaneo",
-			"webhookHint": "O Kaneo envia requisições POST com um payload JSON para cada evento ativado.",
+			"webhookHint": "O Pyrito Ops envia requisições POST com um payload JSON para cada evento ativado.",
 			"secretLabel": "Segredo de assinatura",
 			"secretPlaceholder": "Segredo compartilhado opcional",
-			"secretHint": "Opcional. Se fornecido, o Kaneo assina o corpo da requisição e envia o resumo hexadecimal no cabeçalho X-Kaneo-Signature.",
+			"secretHint": "Opcional. Se fornecido, o Pyrito Ops assina o corpo da requisição e envia o resumo hexadecimal no cabeçalho X-Kaneo-Signature.",
 			"secretHintConfigured": "Um segredo de assinatura já está configurado ({{secret}}). Digite um novo para substituí-lo.",
 			"eventsTitle": "Notificações de eventos",
 			"eventsHint": "Escolha quais alterações do projeto devem acionar webhooks de saída.",
@@ -1168,7 +1168,7 @@
 			"threadIdHint": "Opcional. Use isto para tópicos de fórum dentro de grupos do Telegram.",
 			"chatLabelLabel": "Rótulo do chat",
 			"chatLabelPlaceholder": "Atualizações de Engenharia",
-			"chatLabelHint": "Rótulo opcional apenas para sua referência dentro do Kaneo.",
+			"chatLabelHint": "Rótulo opcional apenas para sua referência dentro do Pyrito Ops.",
 			"eventsTitle": "Notificações de eventos",
 			"eventsHint": "Escolha quais alterações do projeto devem ser publicadas no Telegram.",
 			"events": {
@@ -1944,14 +1944,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} convidou você para participar de {{workspaceName}} no Kaneo",
-			"preview": "Você foi convidado para {{workspaceName}} no Kaneo",
+			"subject": "{{inviterName}} convidou você para participar de {{workspaceName}} no Pyrito Ops",
+			"preview": "Você foi convidado para {{workspaceName}} no Pyrito Ops",
 			"title": "Entrar em {{workspaceName}}",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) convidou você para colaborar no Kaneo.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) convidou você para colaborar no Pyrito Ops.",
 			"cta": "Aceitar convite",
 			"sameEmail": "Você pode aceitar com o mesmo e-mail que recebeu esta mensagem.",
 			"ignore": "Se isso não era esperado, você pode ignorar este e-mail com segurança.",
-			"footer": "Convite para espaço de trabalho do Kaneo"
+			"footer": "Convite para espaço de trabalho do Pyrito Ops"
 		},
 		"pageTitle": "Convites",
 		"pendingInvitations": "Convites pendentes",

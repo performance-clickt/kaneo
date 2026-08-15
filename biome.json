@@ -25,7 +25,10 @@
 			"!**/.cache",
 			"!**/coverage",
 			"!**/.claude",
-			"!**/openapi.json"
+			"!**/openapi.json",
+			"!brand/pyrito/pyrito-brand.compact.json",
+			"!brand/pyrito/pyrito-brand.json",
+			"!brand/pyrito/pyrito-brand.schema.json"
 		]
 	},
 	"formatter": {

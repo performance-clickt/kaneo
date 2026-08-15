@@ -85,18 +85,20 @@ FROM node:20.20.2-alpine AS runtime
 
 ARG OCI_SOURCE="https://github.com/performance-clickt/kaneo"
 ARG OCI_REVISION="unknown"
-ARG OCI_VERSION="v2.18.0-clickt.4a5f68c4543d"
+ARG OCI_VERSION="v2.18.0-pyrito-ops.1.2.0.285d84816f2a"
 ARG KANEO_UPSTREAM_VERSION="2.18.0"
-ARG CLICKT_RESKIN_REVISION="4a5f68c4543dd58dc32bddb03259e4a7263239de"
+ARG PYRITO_BRAND_VERSION="1.2.0"
+ARG PYRITO_BRAND_REVISION="285d84816f2a8659148a4e9e692e14fdde6242a571ccd296b424f08ed89db866"
 
-LABEL org.opencontainers.image.title="Clickt HiveMind" \
-  org.opencontainers.image.description="Clickt's self-hosted project management workspace" \
+LABEL org.opencontainers.image.title="Pyrito Ops" \
+  org.opencontainers.image.description="Pyrito Ops self-hosted project management workspace" \
   org.opencontainers.image.source="$OCI_SOURCE" \
   org.opencontainers.image.revision="$OCI_REVISION" \
   org.opencontainers.image.version="$OCI_VERSION" \
   org.opencontainers.image.licenses="MIT" \
-  io.clickt.kaneo.upstream-version="$KANEO_UPSTREAM_VERSION" \
-  io.clickt.kaneo.reskin-revision="$CLICKT_RESKIN_REVISION"
+  io.pyrito.kaneo.upstream-version="$KANEO_UPSTREAM_VERSION" \
+  io.pyrito.kaneo.brand-version="$PYRITO_BRAND_VERSION" \
+  io.pyrito.kaneo.brand-revision="$PYRITO_BRAND_REVISION"
 
 RUN apk add --no-cache nginx=~1.28.3 && \
   addgroup -g 1001 appuser && \

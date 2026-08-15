@@ -7,8 +7,8 @@ import {
 } from "./urls";
 
 describe("branding URLs", () => {
-  it("uses Clickt branding and the Clickt fork for source CTAs", () => {
-    expect(PRODUCT_NAME).toBe("Clickt HiveMind");
+  it("uses Pyrito Ops branding and the organizational fork for source CTAs", () => {
+    expect(PRODUCT_NAME).toBe("Pyrito Ops");
     expect(SOURCE_REPOSITORY_URL).toBe(
       "https://github.com/performance-clickt/kaneo",
     );

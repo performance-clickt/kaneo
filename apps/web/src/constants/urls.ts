@@ -1,4 +1,4 @@
-export const PRODUCT_NAME = "Clickt HiveMind";
+export const PRODUCT_NAME = "Pyrito Ops";
 export const SOURCE_REPOSITORY_URL =
   "https://github.com/performance-clickt/kaneo";
 

@@ -46,7 +46,7 @@ describe("parseInstallArgs", () => {
     const expected = {
       target: "-my-server",
       output: undefined,
-      name: "kaneo",
+      name: "pyrito_ops",
       yes: true,
       apiUrl: undefined,
       projectDir: process.cwd(),

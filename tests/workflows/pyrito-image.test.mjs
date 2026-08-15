@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import test from "node:test";
 
 const workflowPath = new URL(
-  "../../.github/workflows/clickt-image.yml",
+  "../../.github/workflows/pyrito-image.yml",
   import.meta.url,
 );
 const dockerfilePath = new URL("../../Dockerfile.kaneo", import.meta.url);
@@ -31,7 +31,7 @@ const [workflow, dockerfile, forkGuide, ...upstreamPublishers] =
     ...upstreamPublisherPaths.map((path) => readFile(path, "utf8")),
   ]);
 
-test("Clickt publishing is isolated, manually dispatched, and least privilege", () => {
+test("Pyrito Ops publishing is isolated, manually dispatched, and least privilege", () => {
   assert.match(workflow, /workflow_dispatch:/);
   assert.match(
     workflow,
@@ -45,8 +45,14 @@ test("Clickt publishing is isolated, manually dispatched, and least privilege", 
 test("the only published tag is immutable and multi-architecture", () => {
   assert.match(
     workflow,
-    /image_version="v\$\{UPSTREAM_VERSION\}-clickt\.\$\{short_reskin\}\.\$\{short_source\}"/,
+    /image_version="v\$\{UPSTREAM_VERSION\}-pyrito-ops\.\$\{BRAND_VERSION\}\.\$\{short_brand\}\.\$\{short_source\}"/,
   );
+  assert.match(workflow, /BRAND_VERSION: "1\.2\.0"/);
+  assert.match(
+    workflow,
+    /BRAND_REVISION: 285d84816f2a8659148a4e9e692e14fdde6242a571ccd296b424f08ed89db866/,
+  );
+  assert.match(workflow, /sha256sum brand\/pyrito\/pyrito-brand\.json/);
   assert.match(workflow, /platforms: linux\/amd64,linux\/arm64/);
   assert.match(
     workflow,
@@ -62,16 +68,21 @@ test("published images carry source, revision, version, license and fork provena
     "org.opencontainers.image.revision",
     "org.opencontainers.image.version",
     "org.opencontainers.image.licenses",
-    "io.clickt.kaneo.upstream-version",
-    "io.clickt.kaneo.reskin-revision",
+    "org.opencontainers.image.title",
+    "org.opencontainers.image.description",
+    "io.pyrito.kaneo.upstream-version",
+    "io.pyrito.kaneo.brand-version",
+    "io.pyrito.kaneo.brand-revision",
   ]) {
     assert.match(dockerfile, new RegExp(label.replaceAll(".", "\\.")));
     assert.match(workflow, new RegExp(label.replaceAll(".", "\\.")));
   }
+  assert.match(dockerfile, /org\.opencontainers\.image\.title="Pyrito Ops"/);
+  assert.match(workflow, /org\.opencontainers\.image\.title=Pyrito Ops/);
 });
 
 test("fork documentation keeps upstream publishers disabled", () => {
-  assert.match(forkGuide, /\.github\/workflows\/clickt-image\.yml/);
+  assert.match(forkGuide, /\.github\/workflows\/pyrito-image\.yml/);
   assert.match(forkGuide, /\.github\/workflows\/docker\.yml/);
   assert.match(forkGuide, /remain guarded to `usekaneo\/kaneo`/);
 

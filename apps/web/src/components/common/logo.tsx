@@ -28,13 +28,13 @@ export function Logo({
       aria-label={PRODUCT_NAME}
     >
       <img
-        src="/logo-dark.svg"
+        src="/logo-light.svg"
         alt=""
         aria-hidden="true"
         className={`${imageClassName} w-auto max-w-full dark:hidden ${collapsedLockupClass}`}
       />
       <img
-        src="/logo-light.svg"
+        src="/logo-dark.svg"
         alt=""
         aria-hidden="true"
         className={`hidden ${imageClassName} w-auto max-w-full dark:block ${collapsedLockupClass}`}

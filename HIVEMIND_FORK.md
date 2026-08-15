@@ -1,6 +1,12 @@
-# HiveMind fork governance
+# Pyrito Ops fork governance
 
-This repository is the Clickt-owned Kaneo fork. Kaneo remains Kaneo internally: package scopes, application names, chart names, environment variables, and code-level identifiers should not be renamed merely because the repository is a fork. That keeps upstream review and synchronization tractable.
+This repository ships the standalone Pyrito Ops product identity from the
+`performance-clickt/kaneo` fork. Organizational repository ownership is not a
+product endorsement and must not appear in Pyrito Ops signatures or customer-facing
+copy. Kaneo remains Kaneo internally: package scopes, application names, chart
+names, environment variables, and code-level identifiers should not be renamed
+merely because the repository is a fork. That keeps upstream review and
+synchronization tractable.
 
 ## Repository authority and baseline
 
@@ -97,10 +103,10 @@ The inherited upstream automations that mutate repository state or contact exter
 - npm, MCP Registry, tag, and GitHub Release publishing;
 - release orchestration and Discord issue or release notifications.
 
-The fork has one narrowly scoped publication path: `.github/workflows/clickt-image.yml` manually publishes the bundled Clickt image to `ghcr.io/performance-clickt/kaneo` from the reviewed `main` branch. It uses the workflow's `GITHUB_TOKEN` with only `contents: read` and `packages: write`; it does not require or accept an upstream package token. The image is published for `linux/amd64` and `linux/arm64` with provenance and an SBOM after an amd64 clean-container smoke test proves migrations, API health, web delivery, and branded static assets.
+The fork has one narrowly scoped publication path: `.github/workflows/pyrito-image.yml` manually publishes the bundled Pyrito Ops image to `ghcr.io/performance-clickt/kaneo` from the reviewed `main` branch. It uses the workflow's `GITHUB_TOKEN` with only `contents: read` and `packages: write`; it does not require or accept an upstream package token. The image is published for `linux/amd64` and `linux/arm64` with provenance and an SBOM after an amd64 clean-container smoke test proves migrations, API health, web delivery, and branded static assets.
 
-The workflow never publishes `latest` or another moving tag. Its sole tag has the form `v2.18.0-clickt.4a5f68c4543d.<source-sha-12>`, tying the image to the upstream Kaneo version, the integrated Clickt reskin revision, and the exact publishing commit. It refuses to overwrite an existing tag and records the registry digest plus the fully immutable `image@sha256:...` reference in the job summary and a 90-day metadata artifact. The image also carries OCI source, revision, version, and MIT license labels plus explicit upstream-version and reskin-revision labels.
+The workflow never publishes `latest` or another moving tag. Its sole tag has the form `v2.18.0-pyrito-ops.1.2.0.<brand-sha-12>.<source-sha-12>`, tying the image to the upstream Kaneo version, canonical Pyrito Brand System version/checksum, the Ops surface, and exact publishing commit. It refuses to overwrite an existing tag and records the registry digest plus the fully immutable `image@sha256:...` reference in the job summary and a 90-day metadata artifact. The image also carries OCI source, revision, version, and MIT license labels plus explicit upstream-version, brand-version, and brand-revision labels.
 
-All inherited upstream publication paths, including `.github/workflows/docker.yml`, remain guarded to `usekaneo/kaneo` and disabled in the Clickt fork. The Clickt workflow does not publish separate web/API images, Helm charts, npm packages, MCP Registry entries, releases, tags, Pages content, or notifications. Any additional fork release channel remains a separate, reviewed body of work. Never reuse the upstream `@kaneo` package publishing identity, upstream MCP Registry identity, upstream release tokens, upstream GitHub Pages environment, or upstream notification webhooks.
+All inherited upstream publication paths, including `.github/workflows/docker.yml`, remain guarded to `usekaneo/kaneo` and disabled in the fork. The Pyrito Ops workflow does not publish separate web/API images, Helm charts, npm packages, MCP Registry entries, releases, tags, Pages content, or notifications. Any additional fork release channel remains a separate, reviewed body of work. Never reuse the upstream `@kaneo` package publishing identity, upstream MCP Registry identity, upstream release tokens, upstream GitHub Pages environment, or upstream notification webhooks.
 
 Changes to workflow guards or release boundaries require the same pull-request review as application code. An upstream sync must re-check every workflow before merge because a newly added upstream workflow is not protected automatically.

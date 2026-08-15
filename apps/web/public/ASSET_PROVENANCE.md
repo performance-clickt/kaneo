@@ -1,24 +1,35 @@
-# Clickt HiveMind brand asset provenance
+# Pyrito Ops brand asset provenance
 
-## Supplied sources
+## Canonical source
 
-- `d20-favicon-pack.zip` — SHA-256 `cd545780c61ff2932d2b72f76ae5fc321668c29128bad6496bf96d510ea888d0`
-  - `d20-flat.svg` — SHA-256 `98133c87c63c9102f33b940fae01273167bbad63638fd0a68743d2d09b2d54c6`
-  - `d20-flat-bold.svg` — SHA-256 `785b3b58b523c55f34135e016938d87d8e760a7606b9ca81ea90f03535b09395`
-- `Clickt Division Logo Lockups (standalone) (1).html` — SHA-256 `d749a9ce9fad1c22736b290f04cc0b02f084f679ea877380c8606f901d60f4fc`
-  - Embedded Inter Latin WOFF2 (`26b22360-1620-4b3f-a3be-db2771cb6877`) — SHA-256 `c940764593d0fe5d596be327ca7558855e018039fb78509aa21921fd3644c3e4`
+- Brand guide: <https://wiki.gethivemind.co/p/32/pyrito-brand-system>
+- Pyrito Brand System for LLMs v1.2.0 manifest — SHA-256 `aa5dbadd411d518e04be338549b70a0d7e5942105b87334d5b1a5dd57b0733a7`
+- Canonical `pyrito-brand.json` — SHA-256 `285d84816f2a8659148a4e9e692e14fdde6242a571ccd296b424f08ed89db866`
+- Master `pyrito-d20.svg` — SHA-256 `b641fd94140d643ddaa451031925666b24c1fa1f8ebc87752a65c37d03c013b9`
+- Canonical Ops light lockup — SHA-256 `1ab4f67812375cb6097233d30cba95e04fb06320d50acf676b41992295343b33`
+- Canonical Ops dark lockup — SHA-256 `25e99c16e411f1abf1dfff32f69e5107e1f7bb914d6ecea47dc03d169c4793f6`
+
+The validated source package is vendored unchanged in `brand/pyrito/`. Its
+`manifest.sha256` remains the integrity authority. The D20 geometry and colors
+must not be redrawn, recolored, distorted, cropped, or given effects.
 
 ## Output derivation
 
 | Output | Derivation |
 | --- | --- |
-| `logo-dark.svg` | Horizontal Clickt HiveMind light-surface lockup. Inter Black 900 and Medium 500 glyphs were converted to SVG paths. Colors and spacing follow the supplied HiveMind horizontal lockup: HiveMind 700/500, Ink, and the 28% separator. |
-| `logo-light.svg` | Horizontal Clickt HiveMind dark-surface lockup. The same outlined geometry uses HiveMind 500/300, Offwhite, and the 28% separator. |
-| `favicon.svg` | Exact supplied `d20-flat-bold.svg`, selected for legibility at the browser's 16px slot. |
-| `favicon.ico` | ICO container assembled from the supplied 16px bold PNG plus detailed 32px and 48px flat PNGs. |
-| `favicon-96x96.png` | 96px rasterization of the supplied detailed `d20-flat.svg`. |
-| `apple-touch-icon.png` | Exact supplied 180px Apple touch icon on its solid Ink ground. |
-| `web-app-manifest-192x192.png` | Maskable D20 on a solid HiveMind 900 ground; detailed D20 master centered at 76% scale. |
-| `web-app-manifest-512x512.png` | Same maskable construction rasterized at 512px. |
+| `favicon.svg` | Byte-identical copy of the supplied master `pyrito-d20.svg`. |
+| `logo-light.svg` | Byte-identical copy of the supplied `pyrito-ops-register-light.svg` for white/light surfaces. |
+| `logo-dark.svg` | Byte-identical copy of the supplied `pyrito-ops-register-dark.svg` for Ink/Abyss surfaces. |
+| `favicon.ico` | ICO container holding 16px, 32px, and 48px PNG rasterizations of the unchanged master D20. |
+| `favicon-96x96.png` | Transparent 96px rasterization of the unchanged master D20. |
+| `apple-touch-icon.png` | Master D20 centered at 76% on an Ink canvas. |
+| `web-app-manifest-192x192.png` | Master D20 centered at 76% on an Ink maskable canvas. |
+| `web-app-manifest-512x512.png` | The same maskable construction rasterized at 512px. |
 
-The 76% maskable treatment keeps the complete D20 inside the platform-safe central circle. All SVG lockup lettering is outlined, so no local or remote font is required at runtime.
+`scripts/generate-pyrito-icons.mjs` reproduces the raster and ICO outputs with
+`rsvg-convert`. It refuses to run unless `favicon.svg` remains byte-identical
+to the vendored master.
+
+The existing Cal Sans UI, Cal Sans Heading, and Paper Mono webfont files are
+retained from the upstream Kaneo distribution; KR-11 does not introduce or
+redistribute a new font source. The documented system fallbacks remain active.

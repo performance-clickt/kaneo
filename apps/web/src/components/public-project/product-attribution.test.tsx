@@ -12,12 +12,12 @@ afterEach(() => {
 });
 
 describe("ProductAttribution", () => {
-  it("credits Clickt HiveMind and sends support/source traffic to the fork", () => {
+  it("credits Pyrito Ops and sends support/source traffic to the fork", () => {
     const { getByRole, getByText } = render(<ProductAttribution />);
 
-    expect(getByText("Clickt HiveMind")).toBeVisible();
+    expect(getByText("Pyrito Ops")).toBeVisible();
     expect(
-      getByRole("link", { name: "View Clickt HiveMind source code" }),
+      getByRole("link", { name: "View Pyrito Ops source code" }),
     ).toHaveAttribute("href", SOURCE_REPOSITORY_URL);
   });
 });

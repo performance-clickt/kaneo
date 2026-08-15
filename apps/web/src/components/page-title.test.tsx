@@ -7,9 +7,9 @@ afterEach(() => {
 });
 
 describe("PageTitle", () => {
-  it("uses Clickt HiveMind as the default product suffix", () => {
+  it("uses Pyrito Ops as the default product suffix", () => {
     render(<PageTitle title="Dashboard" />);
 
-    expect(document.title).toBe("Dashboard · Clickt HiveMind");
+    expect(document.title).toBe("Dashboard · Pyrito Ops");
   });
 });

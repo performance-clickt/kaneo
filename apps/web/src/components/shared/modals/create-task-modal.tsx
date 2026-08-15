@@ -131,37 +131,37 @@ function CreateTaskModal({
         {
           value: "purple" as LabelColor,
           labelKey: "lavender" as const,
-          color: "var(--color-violet-500)",
+          color: "var(--color-pyrito-teal-700)",
         },
         {
           value: "teal" as LabelColor,
           labelKey: "sage" as const,
-          color: "var(--color-emerald-600)",
+          color: "var(--color-pyrito-teal-300)",
         },
         {
           value: "green" as LabelColor,
           labelKey: "forest" as const,
-          color: "var(--color-green-600)",
+          color: "var(--color-pyrito-teal)",
         },
         {
           value: "yellow" as LabelColor,
           labelKey: "amber" as const,
-          color: "var(--color-amber-600)",
+          color: "var(--color-pyrito-teal-100)",
         },
         {
           value: "orange" as LabelColor,
           labelKey: "terracotta" as const,
-          color: "var(--color-orange-600)",
+          color: "var(--color-pyrito-teal-700)",
         },
         {
           value: "pink" as LabelColor,
           labelKey: "rose" as const,
-          color: "var(--color-rose-600)",
+          color: "var(--color-pyrito-teal-300)",
         },
         {
           value: "red" as LabelColor,
           labelKey: "crimson" as const,
-          color: "var(--color-red-600)",
+          color: "var(--color-pyrito-ember)",
         },
       ].map(({ labelKey, ...rest }) => ({
         ...rest,

@@ -1,0 +1,390 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pyrito.local/schemas/pyrito-brand.schema.json",
+  "title": "Pyrito Brand System",
+  "description": "Validation schema for the canonical Pyrito machine-readable brand system.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "$schema",
+    "spec",
+    "meta",
+    "identity",
+    "color",
+    "typography",
+    "logo_application",
+    "surface_lockups",
+    "rules",
+    "llm_policy"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "./pyrito-brand.schema.json"
+    },
+    "spec": {
+      "type": "string",
+      "const": "pyrito.brand/1.0"
+    },
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "brand",
+        "version",
+        "status",
+        "updated",
+        "source_of_truth",
+        "description"
+      ],
+      "properties": {
+        "brand": { "const": "Pyrito" },
+        "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+        "status": { "enum": ["draft", "canonical", "deprecated"] },
+        "updated": { "type": "string", "format": "date" },
+        "source_of_truth": { "const": true },
+        "description": { "type": "string", "minLength": 1 }
+      }
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "mode", "positioning", "signature", "mark"],
+      "properties": {
+        "name": { "const": "Pyrito" },
+        "mode": { "const": "standalone" },
+        "positioning": { "type": "string", "minLength": 1 },
+        "signature": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["primary", "subline", "endorsement", "wordmark_text", "wordmark_case", "mark_asset"],
+          "properties": {
+            "primary": { "const": "d20_plus_pyrito_wordmark" },
+            "subline": { "const": "none" },
+            "endorsement": { "const": "none" },
+            "wordmark_text": { "const": "Pyrito" },
+            "wordmark_case": { "const": "title_case" },
+            "mark_asset": { "const": "pyrito-d20.svg" }
+          }
+        },
+        "mark": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "type", "colors_are_fixed", "edge_color_token", "internal_fill_tokens", "redraw_or_recolor"],
+          "properties": {
+            "name": { "const": "D20" },
+            "type": { "const": "geometric_polyhedral_mark" },
+            "colors_are_fixed": { "const": true },
+            "edge_color_token": { "const": "edge-cyan" },
+            "internal_fill_tokens": {
+              "type": "array",
+              "minItems": 3,
+              "uniqueItems": true,
+              "items": { "enum": ["facet-mid", "teal-700", "abyss"] }
+            },
+            "redraw_or_recolor": { "const": "prohibited" }
+          }
+        }
+      }
+    },
+    "color": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["tokens", "systems"],
+      "properties": {
+        "tokens": {
+          "type": "object",
+          "minProperties": 12,
+          "additionalProperties": { "$ref": "#/$defs/colorToken" },
+          "required": ["ink", "abyss", "teal-50", "teal-100", "teal-300", "teal", "teal-700", "ember", "edge-cyan", "facet-mid", "off-white", "white"]
+        },
+        "systems": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["dark_mode", "light_mode", "core_ramp", "allowed_general_accents", "restricted_mark_colors"],
+          "properties": {
+            "dark_mode": { "$ref": "#/$defs/themeMap" },
+            "light_mode": { "$ref": "#/$defs/themeMap" },
+            "core_ramp": {
+              "type": "array",
+              "prefixItems": [
+                { "const": "teal-50" },
+                { "const": "teal-100" },
+                { "const": "teal-300" },
+                { "const": "teal" },
+                { "const": "teal-700" },
+                { "const": "abyss" }
+              ],
+              "items": false
+            },
+            "allowed_general_accents": {
+              "type": "array",
+              "prefixItems": [{ "const": "teal" }, { "const": "ember" }],
+              "items": false
+            },
+            "restricted_mark_colors": {
+              "type": "array",
+              "prefixItems": [{ "const": "edge-cyan" }, { "const": "facet-mid" }],
+              "items": false
+            }
+          }
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["families", "css_stacks", "application"],
+      "properties": {
+        "families": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sans", "heading", "mono"],
+          "properties": {
+            "sans": { "$ref": "#/$defs/fontWithFallbacks" },
+            "heading": { "$ref": "#/$defs/headingFont" },
+            "mono": { "$ref": "#/$defs/fontWithFallbacks" }
+          }
+        },
+        "css_stacks": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["--font-sans", "--font-heading", "--font-mono"],
+          "properties": {
+            "--font-sans": { "type": "string", "minLength": 1 },
+            "--font-heading": { "type": "string", "minLength": 1 },
+            "--font-mono": { "type": "string", "minLength": 1 }
+          }
+        },
+        "application": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["body", "interface", "headings", "code", "identifiers", "technical_content"],
+          "properties": {
+            "body": { "const": "sans" },
+            "interface": { "const": "sans" },
+            "headings": { "const": "heading" },
+            "code": { "const": "mono" },
+            "identifiers": { "const": "mono" },
+            "technical_content": { "const": "mono" }
+          }
+        }
+      }
+    },
+    "logo_application": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["background_variants", "compact_use", "full_use", "asset_policy"],
+      "properties": {
+        "background_variants": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["on_white", "on_ink", "on_abyss"],
+          "properties": {
+            "on_white": { "$ref": "#/$defs/logoVariant" },
+            "on_ink": { "$ref": "#/$defs/logoVariant" },
+            "on_abyss": { "$ref": "#/$defs/logoVariant" }
+          }
+        },
+        "compact_use": { "type": "string", "minLength": 1 },
+        "full_use": { "type": "string", "minLength": 1 },
+        "asset_policy": { "type": "string", "minLength": 1 }
+      }
+    },
+    "surface_lockups": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "status", "surfaces", "variable", "fixed_components", "variants", "assets", "asset_policy"],
+      "properties": {
+        "system": { "const": "register" },
+        "status": { "const": "canonical" },
+        "surfaces": {
+          "type": "array",
+          "prefixItems": [{ "const": "wiki" }, { "const": "ops" }, { "const": "design" }],
+          "items": false
+        },
+        "variable": { "const": "surface_identifier" },
+        "fixed_components": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["mark", "wordmark", "identifier", "rule", "terminal_square"],
+          "properties": {
+            "mark": { "const": "d20_fixed" },
+            "wordmark": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["text", "font_token", "case"],
+              "properties": {
+                "text": { "const": "Pyrito" },
+                "font_token": { "const": "heading" },
+                "case": { "const": "title_case" }
+              }
+            },
+            "identifier": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["font_token", "case"],
+              "properties": {
+                "font_token": { "const": "mono" },
+                "case": { "const": "uppercase" }
+              }
+            },
+            "rule": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["color_token", "position"],
+              "properties": {
+                "color_token": { "const": "teal" },
+                "position": { "const": "below_wordmark" }
+              }
+            },
+            "terminal_square": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": ["color_token", "position"],
+              "properties": {
+                "color_token": { "const": "ember" },
+                "position": { "const": "after_identifier" }
+              }
+            }
+          }
+        },
+        "variants": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["light", "dark"],
+          "properties": {
+            "light": { "$ref": "#/$defs/surfaceVariant" },
+            "dark": { "$ref": "#/$defs/surfaceVariant" }
+          }
+        },
+        "assets": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["wiki", "ops", "design"],
+          "properties": {
+            "wiki": { "$ref": "#/$defs/surfaceAssetPair" },
+            "ops": { "$ref": "#/$defs/surfaceAssetPair" },
+            "design": { "$ref": "#/$defs/surfaceAssetPair" }
+          }
+        },
+        "asset_policy": { "type": "string", "minLength": 1 }
+      }
+    },
+    "rules": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/rule" }
+    },
+    "llm_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority", "precedence", "conflict_resolution", "unknowns", "asset_behavior", "output_check"],
+      "properties": {
+        "authority": { "type": "string", "minLength": 1 },
+        "precedence": {
+          "type": "array",
+          "prefixItems": [{ "const": "must_not" }, { "const": "must" }, { "const": "should" }],
+          "items": false
+        },
+        "conflict_resolution": { "type": "string", "minLength": 1 },
+        "unknowns": { "type": "string", "minLength": 1 },
+        "asset_behavior": { "type": "string", "minLength": 1 },
+        "output_check": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "colorToken": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["hex", "role", "usage"],
+      "properties": {
+        "hex": { "type": "string", "pattern": "^#[0-9A-F]{6}$" },
+        "role": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "usage": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9_]+$" }
+        }
+      }
+    },
+    "themeMap": {
+      "type": "object",
+      "minProperties": 4,
+      "additionalProperties": { "type": "string", "minLength": 1 }
+    },
+    "fontWithFallbacks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role", "fallbacks"],
+      "properties": {
+        "name": { "type": "string", "minLength": 1 },
+        "role": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "fallbacks": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "headingFont": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "role", "fallback_token"],
+      "properties": {
+        "name": { "const": "Cal Sans Heading" },
+        "role": { "const": "display_headings" },
+        "fallback_token": { "const": "sans" }
+      }
+    },
+    "logoVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["wordmark", "mark"],
+      "properties": {
+        "wordmark": { "enum": ["ink", "off-white"] },
+        "mark": { "const": "fixed" }
+      }
+    },
+    "surfaceVariant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["backgrounds", "wordmark_and_identifier"],
+      "properties": {
+        "backgrounds": {
+          "type": "array",
+          "minItems": 2,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "wordmark_and_identifier": { "enum": ["ink", "off-white"] }
+      }
+    },
+    "surfaceAssetPair": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["light", "dark"],
+      "properties": {
+        "light": { "type": "string", "pattern": "^assets/lockups/pyrito-(wiki|ops|design)-register-light\\.svg$" },
+        "dark": { "type": "string", "pattern": "^assets/lockups/pyrito-(wiki|ops|design)-register-dark\\.svg$" }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "level", "scope", "instruction"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:[.-][a-z0-9]+)*$" },
+        "level": { "enum": ["must_not", "must", "should"] },
+        "scope": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+        "instruction": { "type": "string", "minLength": 1 }
+      }
+    }
+  }
+}
