@@ -39,4 +39,16 @@ describe("runtime environment replacement", () => {
       `sed -i -E 's#[\`"'"'"']KANEO_TURNSTILE_SITE_KEY[\`"'"'"']#""#g' {} +`,
     );
   });
+
+  it("does not write runtime environment values to container logs", () => {
+    const entrypoint = readFileSync(
+      resolve(import.meta.dirname, "../env.sh"),
+      "utf8",
+    );
+
+    expect(entrypoint).not.toContain('Found $key: $value');
+    expect(entrypoint).not.toContain('Replaced $key with $value');
+    expect(entrypoint).not.toContain('KANEO_API_URL: $KANEO_API_URL');
+    expect(entrypoint).not.toContain('KANEO_CLIENT_URL: $KANEO_CLIENT_URL');
+  });
 });
